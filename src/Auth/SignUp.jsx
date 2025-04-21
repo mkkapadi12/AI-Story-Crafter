@@ -1,20 +1,24 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+
 
   const onSubmit = async (data) => {
     console.log("Form Data Submitted:", data);
 
     try {
-      const response = await fetch("http://localhost:5002/api/signup", {
+      const response = await fetch("http://localhost:5002/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -23,10 +27,21 @@ const SignUp = () => {
       });
 
       const result = await response.json();
-      console.log("Server Response:", result);
+      if ((result.msg = "Email Already Registered!")) {
+        toast.error(result.msg);
+      }
+
       // handle success, redirect, or show message
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Server Response:", result);
+        reset();
+        toast.success("Registration Successfully !");
+        navigate("/login");
+      }
     } catch (error) {
       console.error("Signup error:", error);
+      toast.error(error.message);
     }
   };
 

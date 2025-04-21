@@ -1,28 +1,40 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     console.log("Login Data Submitted:", data);
 
     try {
-      const response = await fetch("http://localhost:5000/api/signin", {
+      const response = await fetch("http://localhost:5002/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-
-      const result = await response.json();
-      console.log("Server Response:", result);
+      // console.log("Response Status:", response.status);
+      if (response.ok) {
+        const res_data = await response.json();
+        console.log("Server response", res_data);
+        reset();
+        toast.success("Login Successfully !");
+        navigate("/");
+      } else {
+        toast.error("Invalid email and password !!");
+        // navigate("/signup");
+      }
 
       // Add logic to store token or redirect user
     } catch (error) {
