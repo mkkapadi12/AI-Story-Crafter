@@ -13,7 +13,6 @@ const SignUp = () => {
   } = useForm();
   const navigate = useNavigate();
 
-
   const onSubmit = async (data) => {
     console.log("Form Data Submitted:", data);
 
@@ -26,11 +25,6 @@ const SignUp = () => {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-      if ((result.msg = "Email Already Registered!")) {
-        toast.error(result.msg);
-      }
-
       // handle success, redirect, or show message
       if (response.ok) {
         const result = await response.json();
@@ -38,6 +32,8 @@ const SignUp = () => {
         reset();
         toast.success("Registration Successfully !");
         navigate("/login");
+      } else {
+        toast.error("Email Already Exists !");  
       }
     } catch (error) {
       console.error("Signup error:", error);

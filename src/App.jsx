@@ -1,4 +1,5 @@
 import React from "react";
+import { Toaster } from "react-hot-toast";
 import { GlobalStyle } from "./GlobalStyles";
 //rrd
 import { BrowserRouter as Main, Route, Routes } from "react-router-dom";
@@ -10,9 +11,10 @@ import NotFound from "./pages/Error";
 import About from "./pages/About";
 import Discover from "./pages/Discover";
 import StoryGenerator from "./pages/StoryGenerator";
+//Auth
 import SignIn from "./Auth/SignIn";
 import SignUp from "./Auth/SignUp";
-import { Toaster } from "react-hot-toast";
+import Logout from "./Auth/Logout";
 //components
 
 const App = () => {
@@ -25,6 +27,7 @@ const App = () => {
           {/* Authentication pages */}
           <Route exact path="/login" element={<SignIn />} />
           <Route exact path="/signup" element={<SignUp />} />
+          <Route exact path="/logout" element={<Logout />} />
 
           <Route exact path="/" element={<Home />} />
           <Route exact path="/about" element={<About />} />

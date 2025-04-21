@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ICONS } from "@/icons/icons";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "@/Context/AuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { user, isLoggedIn } = useAuthContext();
   const toggleMenu = () => setIsOpen(!isOpen);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <header className="bg-[#007BFF] text-white shadow-md sticky top-0 z-50">
@@ -35,18 +32,31 @@ const Navbar = () => {
         </nav>
 
         <div className="items-center hidden gap-4 md:flex">
-          <Link
-            to="/login"
-            className="bg-white text-[#007BFF] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition"
-          >
-            Login
-          </Link>
-          <Link
-            to="/signup"
-            className="bg-white text-[#007BFF] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition"
-          >
-            Sign Up
-          </Link>
+          {!isLoggedIn ? (
+            <>
+              <Link
+                to="/signup"
+                className="bg-white text-[#007BFF] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition"
+              >
+                Sign Up
+              </Link>
+              <Link
+                to="/login"
+                className="bg-white text-[#007BFF] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition"
+              >
+                Login
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/logout"
+                className="bg-white text-[#007BFF] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition"
+              >
+                Logout
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Hamburger */}
@@ -82,16 +92,26 @@ const Navbar = () => {
             About Us
           </Link>
           <hr className="my-2 border-white/30" />
-          <Link to="/login" onClick={toggleMenu}>
-            Login
-          </Link>
-          <Link
-            to="/signup"
-            className="bg-white text-[#007BFF] text-center px-4 py-2 rounded-full font-semibold"
-            onClick={toggleMenu}
-          >
-            Sign Up
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <Link to="/logout" onClick={toggleMenu}>
+                Logout
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login" onClick={toggleMenu}>
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="bg-white text-[#007BFF] text-center px-4 py-2 rounded-full font-semibold"
+                onClick={toggleMenu}
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </nav>
       </div>
 

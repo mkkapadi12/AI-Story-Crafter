@@ -1,3 +1,4 @@
+import { useAuthContext } from "@/Context/AuthContext";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -11,6 +12,7 @@ const SignIn = () => {
     formState: { errors },
   } = useForm();
 
+  const { storeTokenInLS } = useAuthContext();
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -28,6 +30,7 @@ const SignIn = () => {
       if (response.ok) {
         const res_data = await response.json();
         console.log("Server response", res_data);
+        storeTokenInLS(res_data.token);
         reset();
         toast.success("Login Successfully !");
         navigate("/");
@@ -39,6 +42,7 @@ const SignIn = () => {
       // Add logic to store token or redirect user
     } catch (error) {
       console.error("Sign-in error:", error);
+      toast.error("An error occurred. Please try again.");
     }
   };
 
