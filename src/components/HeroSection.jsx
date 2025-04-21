@@ -12,10 +12,13 @@ const HeroSection = () => {
         </div>
 
         <div className="mb-12 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#363535] mb-6">
+          <h2 className="text-[#2B2B2B] text-lg sm:text-xl mb-2">
+            Explore Limitless Possibilities{" "}
+          </h2>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#007BFF] mb-6">
             Where Images Paint a Thousand Stories
           </h1>
-          <p className="text-lg text-[#404040] max-w-2xl mx-auto mb-8">
+          <p className="text-lg text-[#4A4A4A] max-w-3xl mx-auto mb-8">
             Unleash your creativity with our AI-powered image generation
             platform. Create stunning visuals for any occasion.
           </p>

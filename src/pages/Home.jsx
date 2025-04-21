@@ -22,7 +22,7 @@ const Home = () => {
       {/* Themed Prompts Section */}
       <section className="px-4 py-16 bg-gray-50">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-[#007BFF] text-xl mb-2 text-center">
+          <h2 className="text-[#2B2B2B] text-xl mb-2 text-center">
             Fresh & Relevant Themed Prompts for Every Occasion
           </h2>
 

@@ -1,5 +1,6 @@
 import React from "react";
 import ShapeDecorator from "./shape-decorator";
+import { Button } from "./ui/button";
 
 const WinterWonder = () => {
   return (
@@ -15,11 +16,20 @@ const WinterWonder = () => {
           </div>
 
           <div className="mb-12 text-center">
-            <h2 className="text-[#007BFF] text-xl mb-2">Winter Wonders</h2>
-            <p className="mx-auto max-w-2xl text-lg text-[#404040] mb-8">
-              Embrace the magic of winter with our specially curated collection
-              of snowy scenes and cozy moments.
+            <h2 className="text-[#2B2B2B] text-xl mb-2">Winter Wonders</h2>
+            <p className="mx-auto max-w-4xl text-lg text-[#404040] mb-8">
+              Embrace the enchantment of the winter season with our "Winter
+              Wonders" themed prompt. Capture the essence of snowy landscapes,
+              cozy moments by the fireplace, or the magic of holiday
+              festivities. Write a poem, paint a wintry scene, or create any
+              form of art that celebrates the beauty and emotions of winter. Let
+              the chill in the air inspire your creativity and transport you to
+              a world of winter wonders.{" "}
             </p>
+          </div>
+
+          <div className="flex items-center justify-center mx-auto max-w-7xl">
+            <Button className="bg-[#FF5599] text-white cursor-pointer">Explore</Button>
           </div>
 
           <div className="absolute bottom-0 left-0 z-[-999]">
