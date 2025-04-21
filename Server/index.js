@@ -21,7 +21,7 @@ app.use(
 app.use(express.json({ limit: "50mb" })); // Increase JSON payload limit
 app.use(express.urlencoded({ limit: "50mb", extended: true })); // Increase URL-encoded payload limit
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/", (req, res) => res.send("Hello This is Server Side!"));
 
 //auth route
 app.use("/api/auth", auth_route);
