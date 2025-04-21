@@ -15,15 +15,19 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     console.log("Form Data Submitted:", data);
-
+    //For Development :http://localhost:5002/api/auth/register
     try {
-      const response = await fetch("http://localhost:5002/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        //For Deployment:
+        "https://ai-story-crafter-server.vercel.app/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       // handle success, redirect, or show message
       if (response.ok) {
@@ -33,7 +37,7 @@ const SignUp = () => {
         toast.success("Registration Successfully !");
         navigate("/login");
       } else {
-        toast.error("Email Already Exists !");  
+        toast.error("Email Already Exists !");
       }
     } catch (error) {
       console.error("Signup error:", error);

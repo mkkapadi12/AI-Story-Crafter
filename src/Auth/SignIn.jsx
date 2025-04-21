@@ -17,15 +17,19 @@ const SignIn = () => {
 
   const onSubmit = async (data) => {
     console.log("Login Data Submitted:", data);
-
+    //For Development:http://localhost:5000/api/auth/login
     try {
-      const response = await fetch("http://localhost:5002/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        //For Deployment:
+        "https://ai-story-crafter-server.vercel.app/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       // console.log("Response Status:", response.status);
       if (response.ok) {
         const res_data = await response.json();
