@@ -1,5 +1,4 @@
 import React from "react";
-
 import { GlobalStyle } from "./GlobalStyles";
 //rrd
 import { BrowserRouter as Main, Route, Routes } from "react-router-dom";
@@ -7,8 +6,8 @@ import { BrowserRouter as Main, Route, Routes } from "react-router-dom";
 
 //pages
 import Home from "./pages/Home";
+import NotFound from "./pages/Error";
 //components
-import Error from "./pages/Error";
 
 const App = () => {
   return (
@@ -18,7 +17,7 @@ const App = () => {
         {/* <Intro /> */}
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="*" element={<Error />} />
+          <Route exact path="*" element={<NotFound />} />
         </Routes>
       </Main>
     </>

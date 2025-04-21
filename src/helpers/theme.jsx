@@ -3,7 +3,7 @@ export const theme = {
     // 🔤 Text & Headings
     heading: "#2B2B2B", // Neutral dark for strong headings
     text: "#4A4A4A", // Softer dark for readability
-
+    text_head: "#007BFF",
     // 🖼️ Backgrounds
     bg: "#F5F5F5", // Light gray background
     card_bg: "#E0E0E0", // Light neutral gray for story cards

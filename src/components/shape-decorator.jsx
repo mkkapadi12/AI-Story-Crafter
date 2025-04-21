@@ -14,10 +14,8 @@ export default function ShapeDecorator({ type, color, className = "" }) {
         <div
           className={`${className}`}
           style={{
-            width: 0,
-            height: 0,
-            borderLeft: "15px solid transparent",
-            borderRight: "15px solid transparent",
+            borderLeft: "30px solid transparent",
+            borderRight: "30px solid transparent",
             borderBottom: `30px solid ${color}`,
           }}
         ></div>

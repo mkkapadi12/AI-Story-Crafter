@@ -1,44 +1,37 @@
-import { Button } from "@/components/ui/button";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+// src/pages/NotFound.jsx
+import { Link } from "react-router-dom";
+import ShapeDecorator from "@/components/shape-decorator";
 
-const Error = () => {
-  const navigate = useNavigate();
-
+export default function NotFound() {
   return (
-    <div
-      className="flex flex-col items-center justify-center h-screen bg-cover bg-center"
-      // style={{
-      //   backgroundImage: "url('/assets/error-bg.jpg')", // Replace with your image path
-      // }}
-    >
-      <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-lg text-center">
-        <h1 className="text-8xl font-extrabold text-red-600 drop-shadow-md">
-          404
-        </h1>
-        <p className="text-2xl text-gray-800 mt-4 font-semibold">
-          Oops! The page you're looking for doesn't exist.
-        </p>
-        <p className="text-lg text-gray-600 mt-2">
-          It seems you've hit a dead end. Let's get you back on track.
-        </p>
-        <div className="mt-8 flex space-x-4">
-          <Button
-            onClick={() => navigate(-1)}
-            className="!px-6 !py-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 transition-all duration-300"
-          >
-            Go Back
-          </Button>
-          <Button
-            onClick={() => navigate("/")}
-            className="!px-6 !py-3 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transition-all duration-300"
-          >
-            Home
-          </Button>
-        </div>
+    <div className="relative flex flex-col items-center justify-center min-h-screen px-6 overflow-hidden bg-white">
+      {/* Decorative shapes */}
+      <div className="absolute top-10 left-10">
+        <ShapeDecorator type="circle" color="#39a137" className="w-12 h-12" />
+      </div>
+      <div className="absolute bottom-10 right-10">
+        <ShapeDecorator type="circle" color="#ecd71d" className="w-10 h-10" />
+      </div>
+
+      <h1 className="text-[6rem] font-extrabold text-[#007BFF] mb-4">404</h1>
+      <p className="max-w-xl mb-6 text-xl text-center text-gray-600">
+        Oops! The page you're looking for doesn't exist. It might have been
+        removed or the link is broken.
+      </p>
+      <div className="flex gap-4">
+        <Link
+          to="/"
+          className="bg-[#702dff] text-white px-6 py-3 rounded-lg font-medium shadow-md hover:bg-[#5c21e0] transition-all"
+        >
+          Go Home
+        </Link>
+        <Link
+          to="/create"
+          className="border border-[#702dff] text-[#702dff] px-6 py-3 rounded-lg font-medium hover:bg-[#f2ebff] transition-all"
+        >
+          Start Creating
+        </Link>
       </div>
     </div>
   );
-};
-
-export default Error;
+}
