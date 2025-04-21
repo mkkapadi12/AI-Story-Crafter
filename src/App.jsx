@@ -7,10 +7,12 @@ import { BrowserRouter as Main, Route, Routes } from "react-router-dom";
 //pages
 import Home from "./pages/Home";
 import NotFound from "./pages/Error";
-import Gallery from "./pages/Discover";
 import About from "./pages/About";
 import Discover from "./pages/Discover";
 import StoryGenerator from "./pages/StoryGenerator";
+import SignIn from "./Auth/SignIn";
+import SignUp from "./Auth/SignUp";
+import { Toaster } from "react-hot-toast";
 //components
 
 const App = () => {
@@ -18,14 +20,20 @@ const App = () => {
     <>
       <Main>
         <GlobalStyle />
-        {/* <Intro /> */}
+
         <Routes>
+          {/* Authentication pages */}
+          <Route exact path="/login" element={<SignIn />} />
+          <Route exact path="/signup" element={<SignUp />} />
+
           <Route exact path="/" element={<Home />} />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/discover" element={<Discover />} />
           <Route exact path="/create" element={<StoryGenerator />} />
+          {/* Error Page */}
           <Route exact path="*" element={<NotFound />} />
         </Routes>
+        <Toaster />
       </Main>
     </>
   );
