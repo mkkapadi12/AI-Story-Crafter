@@ -15,11 +15,11 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     console.log("Form Data Submitted:", data);
-    //For Deployment:"https://ai-story-crafter-server.vercel.app/api/auth/register",
+    //For Development:"http://localhost:5002/api/auth/register",
     try {
       const response = await fetch(
-        //For Development :
-        "http://localhost:5002/api/auth/register",
+        //For Deployment :
+        "https://ai-story-crafter-server.vercel.app/api/auth/register",
         {
           method: "POST",
           headers: {

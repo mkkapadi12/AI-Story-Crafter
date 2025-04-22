@@ -17,12 +17,12 @@ const SignIn = () => {
 
   const onSubmit = async (data) => {
     console.log("Login Data Submitted:", data);
-    //For Deployment:
-    // "https://ai-story-crafter-server.vercel.app/api/auth/login",
+    //For Development:
+    // "http://localhost:5002/api/auth/login",
     try {
       const response = await fetch(
-        //For Development:
-        "http://localhost:5002/api/auth/login",
+        //For Deployment:
+        "https://ai-story-crafter-server.vercel.app/api/auth/login",
         {
           method: "POST",
           headers: {
