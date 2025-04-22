@@ -15,6 +15,7 @@ import StoryGenerator from "./pages/StoryGenerator";
 import SignIn from "./Auth/SignIn";
 import SignUp from "./Auth/SignUp";
 import Logout from "./Auth/Logout";
+import PrivateRoute from "./Private/PrivateRoute";
 //components
 
 const App = () => {
@@ -32,7 +33,17 @@ const App = () => {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/about" element={<About />} />
           <Route exact path="/discover" element={<Discover />} />
-          <Route exact path="/create" element={<StoryGenerator />} />
+
+          <Route
+            exact
+            path="/create"
+            element={
+              <PrivateRoute>
+                <StoryGenerator />
+              </PrivateRoute>
+            }
+          />
+
           {/* Error Page */}
           <Route exact path="*" element={<NotFound />} />
         </Routes>
