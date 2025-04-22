@@ -28,14 +28,20 @@ const AuthProvider = ({ children }) => {
     setUser(""); // Clear the user data on logout
   };
 
+  //for development purpose: http://localhost:5002/api/auth/user
+  //for deployment purpose: https://ai-story-crafter-server.vercel.app/api/auth/user
+
   const userAuthentication = async () => {
     if (!token) return; // Skip if no token is available
     try {
-      const res = await axios.get("http://localhost:5002/api/auth/user", {
-        headers: {
-          Authorization: authorizationToken,
-        },
-      });
+      const res = await axios.get(
+        "https://ai-story-crafter-server.vercel.app/api/auth/user",
+        {
+          headers: {
+            Authorization: authorizationToken,
+          },
+        }
+      );
       const userInfo = res.data;
       setUser(userInfo.userData); // Update user state
     } catch (error) {
