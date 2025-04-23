@@ -4,8 +4,12 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import StoryCard from "@/components/StoryCard";
 import FeaturedStory from "@/components/FeaturedStory";
 import Navbar from "@/components/Navbar";
+import { useStoryContext } from "@/Context/StoryContext";
+import Loading from "@/helpers/Loading";
 
 export default function Stories() {
+  const { stories, loading } = useStoryContext();
+
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
@@ -65,44 +69,21 @@ export default function Stories() {
             More Stories
           </h2>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <StoryCard
-              image="https://placehold.co/600x400/png"
-              title="Vintage Aesthetics"
-              description="Explore the charm of bygone eras with our vintage-inspired prompts."
-              category="Vintage"
-            />
-            <StoryCard
-              image="https://placehold.co/600x400/png"
-              title="Futuristic Visions"
-              description="Glimpse into tomorrow with our cutting-edge futuristic prompts."
-              category="Futuristic"
-            />
-            <StoryCard
-              image="https://placehold.co/600x400/png"
-              title="Natural Wonders"
-              description="Capture the beauty of nature with our environmental prompts."
-              category="Nature"
-            />
-            <StoryCard
-              image="https://placehold.co/600x400/png"
-              title="Autumn Reflections"
-              description="Celebrate the colors and moods of fall with our autumn collection."
-              category="Seasonal"
-            />
-            <StoryCard
-              image="https://placehold.co/600x400/png"
-              title="Urban Landscapes"
-              description="Discover the beauty in city life with our urban-themed prompts."
-              category="Urban"
-            />
-            <StoryCard
-              image="https://placehold.co/600x400/png"
-              title="Mystical Realms"
-              description="Journey into fantasy worlds with our mystical and magical prompts."
-              category="Fantasy"
-            />
-          </div>
+          {loading ? (
+            <Loading loading="loading..." />
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {stories.map((story) => (
+                <StoryCard
+                  key={story._id}
+                  image={story.coverImage}
+                  title={story.title}
+                  description={story.story}
+                  category="Fiction"
+                />
+              ))}
+            </div>
+          )}
 
           <div className="flex justify-center mt-10">
             <Button

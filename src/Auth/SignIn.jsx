@@ -16,7 +16,7 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log("Login Data Submitted:", data);
+    // console.log("Login Data Submitted:", data);
     //For Development:
     // "http://localhost:5002/api/auth/login",
     try {
@@ -34,7 +34,7 @@ const SignIn = () => {
       // console.log("Response Status:", response.status);
       if (response.ok) {
         const res_data = await response.json();
-        console.log("Server response", res_data);
+        // console.log("Server response", res_data);
         storeTokenInLS(res_data.token);
         reset();
         toast.success("Login Successfully !");

@@ -7,7 +7,7 @@ const ConnectDB = require("./Database/connect");
 
 //routes
 const auth_route = require("./routes/auth-route");
-
+const story_route = require("./routes/story-route");
 //cors
 app.use(
   cors({
@@ -25,6 +25,7 @@ app.get("/", (req, res) => res.send("Hello This is Server Side!"));
 
 //auth route
 app.use("/api/auth", auth_route);
+app.use("/api/story", story_route);
 
 const start = async () => {
   try {

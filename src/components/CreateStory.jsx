@@ -12,17 +12,30 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import Loading from "@/helpers/Loading";
+import { useAuthContext } from "@/Context/AuthContext";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useStoryContext } from "@/Context/StoryContext";
 
 // Replace with your actual API key
 const API_KEY = process.env.GEMINI_API_KEY;
 
 const CreateStory = () => {
+  const { user } = useAuthContext();
+  const { fetchStories } = useStoryContext();
+
   const [selectedTheme, setSelectedTheme] = useState("anime");
+  const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const [prompt, setPrompt] = useState("");
   const [output, setOutput] = useState("");
+  //hadling image upload
   const [image, setImage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({
+    title: "",
+    story: "",
+    user,
+  });
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -60,7 +73,7 @@ const CreateStory = () => {
   ];
 
   // console.log("prompt :", prompt);
-  console.log("selectedTheme :", selectedTheme);
+  // console.log("selectedTheme :", selectedTheme);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -123,11 +136,58 @@ const CreateStory = () => {
       for await (const response of result.stream) {
         buffer.push(response.text());
         setOutput(md.render(buffer.join("")));
+        setData((prev) => ({ ...prev, story: md.render(buffer.join("")) }));
         setLoading(false);
       }
       // setPrompt("");
     } catch (error) {
       setOutput((prevOutput) => prevOutput + "<hr>" + error);
+    }
+  };
+
+  //for debugging purpose
+  // console.log("data :", data);
+  // console.log("output :", output);
+
+  const saveStory = async () => {
+    if (!image) return alert("Please select an image!");
+    // if (!prompt) return alert("Please enter a prompt!");
+    console.log("image =>", image);
+
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", data.title);
+    formData.append("story", data.story);
+    formData.append("name", user.name);
+    formData.append("createdBy", user._id);
+
+    //For development : http://localhost:5002/api/story/add
+    //For production : https://ai-story-crafter-server.vercel.app/api/story/add
+
+    try {
+      const res = await axios
+        .post(
+          "https://ai-story-crafter-server.vercel.app/api/story/add",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then((res) => {
+          // console.log("Story created successfully!", res.data);
+          toast.success("Story created successfully!");
+          fetchStories();
+          setData({ title: "", story: "" });
+        })
+        .catch((error) => {
+          console.error("Error submitting story !!", error);
+          toast.error(error.message);
+        });
+    } catch (error) {
+      console.error("Error submitting story !!", error);
+      toast.error(error.message);
     }
   };
 
@@ -194,6 +254,9 @@ const CreateStory = () => {
           <Input
             placeholder="Enter a title..."
             className="w-full border-gray-300"
+            onChange={(e) =>
+              setData((prev) => ({ ...prev, title: e.target.value }))
+            }
           />
         </div>
 
@@ -272,7 +335,10 @@ const CreateStory = () => {
                   <p className="mb-2 text-sm text-gray-500">
                     If you like the story, you can save it!
                   </p>
-                  <Button className="text-white bg-purple-600 cursor-pointer hover:bg-purple-700">
+                  <Button
+                    onClick={saveStory}
+                    className="text-white bg-purple-600 cursor-pointer hover:bg-purple-700"
+                  >
                     Save
                   </Button>
                 </div>

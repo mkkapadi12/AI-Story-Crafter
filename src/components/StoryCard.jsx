@@ -21,7 +21,11 @@ export default function StoryCard({ image, title, description, category }) {
           </Badge>
         </div>
         <h3 className="mb-2 text-xl font-semibold">{title}</h3>
-        <p className="text-sm text-gray-600">{description}</p>
+        <div
+          className="my-4 output"
+          dangerouslySetInnerHTML={{ __html: description.slice(0, 100) }}
+        />
+        {/* <p className="text-sm text-gray-600">{description.slice(0, 20)}</p> */}
       </CardContent>
 
       <CardFooter className="p-4 border-t">
