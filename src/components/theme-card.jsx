@@ -12,13 +12,13 @@ export default function ThemeCard({
     <div className="flex flex-col">
       <Link
         href={href}
-        className="block mb-3 overflow-hidden transition-shadow rounded-lg shadow-md hover:shadow-lg"
+        className="block mb-3 overflow-hidden transition-shadow rounded-lg shadow-md hover:shadow-lg w-[360px] h-[250px]"
       >
         <div className="relative flex items-center justify-center aspect-square">
           <img
             src={src || "/placeholder.svg"}
             alt={alt}
-            className="object-cover rounded-lg"
+            className="object-cover w-full h-full mx-auto rounded-lg"
           />
         </div>
       </Link>

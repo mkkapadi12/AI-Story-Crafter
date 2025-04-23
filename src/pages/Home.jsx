@@ -28,21 +28,21 @@ const Home = () => {
 
           <div className="grid grid-cols-1 gap-8 mt-12 md:grid-cols-3">
             <ThemeCard
-              src="https://placehold.co/300"
+              src="https://wallpapers.com/images/featured/vintage-aesthetic-pictures-1yd8eeprzyp1dgup.jpg"
               alt="Vintage theme"
               title="Vintage Aesthetics"
               description="Explore the charm of bygone eras with our vintage-inspired prompts."
               href="/themes/vintage"
             />
             <ThemeCard
-              src="https://placehold.co/300"
+              src="https://media.gettyimages.com/id/1310953049/photo/a-world-like-no-other.jpg?s=612x612&w=gi&k=20&c=Cz4Q4VN88lUzy1HusI91pUC6yELh9vRiYOasM0Vrnxw="
               alt="Futuristic theme"
               title="Futuristic Visions"
               description="Glimpse into tomorrow with our cutting-edge futuristic prompts."
               href="/themes/futuristic"
             />
             <ThemeCard
-              src="https://placehold.co/300"
+              src="https://media.istockphoto.com/id/1346270784/photo/niagara-falls-horseshoe-falls.jpg?s=612x612&w=0&k=20&c=ra4FaCjLDTMjatCIOTCJP-ilDr0amtzMgI8aAjyf3qU="
               alt="Nature theme"
               title="Natural Wonders"
               description="Capture the beauty of nature with our environmental prompts."

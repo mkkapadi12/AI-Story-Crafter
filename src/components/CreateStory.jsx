@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import Loading from "@/helpers/Loading";
 
 // Replace with your actual API key
 const API_KEY = process.env.GEMINI_API_KEY;
@@ -41,16 +42,25 @@ const CreateStory = () => {
   // console.log("imagePreview :", imagePreview);
 
   const themes = [
-    { id: "anime", name: "Anime", icon: "🎭" },
     { id: "love", name: "Love", icon: "❤️" },
-    { id: "sad1", name: "Sad", icon: "😢" },
-    { id: "sad2", name: "Melancholy", icon: "😭" },
+    { id: "sad", name: "Sad", icon: "😢" },
+    { id: "melancholy", name: "Melancholy", icon: "😭" },
     { id: "happy", name: "Happy", icon: "🎉" },
-    { id: "anime2", name: "Otaku", icon: "🎌" },
-    { id: "sad3", name: "Tragic", icon: "🥀" },
+    { id: "tragic", name: "Tragic", icon: "🥀" },
+    { id: "sciFi", name: "Sci-Fi", icon: "👽" },
+    { id: "thriller", name: "Thriller", icon: "🔪" },
+    { id: "adventure", name: "Adventure", icon: "🧗" },
+    { id: "comedy", name: "Comedy", icon: "😂" },
+    { id: "horror", name: "Horror", icon: "👻" },
+    { id: "crime", name: "Crime", icon: "🕵️" },
+    { id: "mystery", name: "Mystery", icon: "🧩" },
+    { id: "drama", name: "Drama", icon: "🎭" },
+    { id: "romance", name: "Romance", icon: "💘" },
+    { id: "animation", name: "Animation", icon: "🎨" },
   ];
 
   // console.log("prompt :", prompt);
+  console.log("selectedTheme :", selectedTheme);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -89,7 +99,7 @@ const CreateStory = () => {
                 ]
               : []),
             {
-              text: `Create a story based on the image and the following prompt. The story should be imaginative, engaging, and related to the theme. In the last of story give moral of the story.In starting of the story give also title.\n\n${prompt}`,
+              text: `Create a story based on the image and the following prompt. The story should be imaginative, engaging, and related to the theme and must add icons and emoji. In the last of story give moral of the story.In starting of the story give also title.\n\n${prompt} remember to use the theme ${selectedTheme}.\n\n And give space between title and story.`,
             },
           ],
         },
@@ -214,7 +224,7 @@ const CreateStory = () => {
           </label>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {themes.map((theme) => (
-              <button
+              <div
                 key={`${theme.id}-${theme.icon}`}
                 onClick={() => setSelectedTheme(theme.id)}
                 className={cn(
@@ -226,7 +236,7 @@ const CreateStory = () => {
               >
                 <span className="text-xl">{theme.icon}</span>
                 <span className="text-sm font-medium">{theme.name}</span>
-              </button>
+              </div>
             ))}
           </div>
         </div>
@@ -245,14 +255,30 @@ const CreateStory = () => {
       {/* Output Section */}
       {loading ? (
         <>
-          <div className="">Loading...</div>
+          <Loading loadingText="Loading..." />
         </>
       ) : (
         <>
           <div
-            className="output"
+            className="my-4 output"
             dangerouslySetInnerHTML={{ __html: output }}
           />
+          {output && (
+            <>
+              {output.includes(
+                "Please provide an image or a story description to generate a story."
+              ) ? null : (
+                <div className="my-4 text-center">
+                  <p className="mb-2 text-sm text-gray-500">
+                    If you like the story, you can save it!
+                  </p>
+                  <Button className="text-white bg-purple-600 cursor-pointer hover:bg-purple-700">
+                    Save
+                  </Button>
+                </div>
+              )}
+            </>
+          )}
         </>
       )}
     </div>
