@@ -1,0 +1,119 @@
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import StoryCard from "@/components/StoryCard";
+import FeaturedStory from "@/components/FeaturedStory";
+import Navbar from "@/components/Navbar";
+
+export default function Stories() {
+  return (
+    <main className="min-h-screen bg-white">
+      <Navbar />
+      {/* Top Stories Hero Section */}
+      <section className="relative py-16 mx-auto bg-blue-50 max-w-7xl">
+        <div className="container px-4 mx-auto">
+          <h1 className="mb-6 text-3xl font-bold text-center text-blue-600 md:text-4xl lg:text-5xl">
+            Top Stories
+          </h1>
+          <p className="max-w-2xl mx-auto mb-10 text-center text-gray-600">
+            Discover our most popular AI-generated stories and images that have
+            captivated our community
+          </p>
+
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <FeaturedStory
+              className="md:col-span-2 lg:col-span-3"
+              image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRumjxs_M6inrsivi1bsDPvVuenhd5-ED3rzg&s"
+              title="Winter Wonderland Adventures"
+              description="Embrace the enchantment of the winter season with our 'Winter Wonders' themed stories. Capture the essence of snowy landscapes and cozy moments."
+              category="Seasonal"
+            />
+          </div>
+        </div>
+
+        {/* Decorative circles */}
+        <div className="absolute w-12 h-12 bg-green-500 rounded-full left-10 top-20 opacity-70"></div>
+        <div className="absolute w-10 h-10 bg-yellow-400 rounded-full right-10 top-10 opacity-70"></div>
+      </section>
+
+      {/* Filter Section */}
+      <section className="py-6 mx-auto border-b border-gray-200 max-w-7xl">
+        <div className="container px-4 mx-auto">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <h2 className="text-xl font-semibold text-gray-800">
+              Browse Stories
+            </h2>
+            <Tabs defaultValue="all" className="w-full md:w-auto">
+              <TabsList className="grid w-full grid-cols-4 md:w-auto md:grid-cols-5">
+                <TabsTrigger value="all">All</TabsTrigger>
+                <TabsTrigger value="vintage">Vintage</TabsTrigger>
+                <TabsTrigger value="futuristic">Futuristic</TabsTrigger>
+                <TabsTrigger value="nature">Nature</TabsTrigger>
+                <TabsTrigger value="seasonal" className="hidden md:inline-flex">
+                  Seasonal
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+        </div>
+      </section>
+
+      {/* More Stories Section */}
+      <section className="py-12 mx-auto max-w-7xl">
+        <div className="container px-4 mx-auto">
+          <h2 className="mb-8 text-2xl font-bold text-gray-800">
+            More Stories
+          </h2>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <StoryCard
+              image="https://placehold.co/600x400/png"
+              title="Vintage Aesthetics"
+              description="Explore the charm of bygone eras with our vintage-inspired prompts."
+              category="Vintage"
+            />
+            <StoryCard
+              image="https://placehold.co/600x400/png"
+              title="Futuristic Visions"
+              description="Glimpse into tomorrow with our cutting-edge futuristic prompts."
+              category="Futuristic"
+            />
+            <StoryCard
+              image="https://placehold.co/600x400/png"
+              title="Natural Wonders"
+              description="Capture the beauty of nature with our environmental prompts."
+              category="Nature"
+            />
+            <StoryCard
+              image="https://placehold.co/600x400/png"
+              title="Autumn Reflections"
+              description="Celebrate the colors and moods of fall with our autumn collection."
+              category="Seasonal"
+            />
+            <StoryCard
+              image="https://placehold.co/600x400/png"
+              title="Urban Landscapes"
+              description="Discover the beauty in city life with our urban-themed prompts."
+              category="Urban"
+            />
+            <StoryCard
+              image="https://placehold.co/600x400/png"
+              title="Mystical Realms"
+              description="Journey into fantasy worlds with our mystical and magical prompts."
+              category="Fantasy"
+            />
+          </div>
+
+          <div className="flex justify-center mt-10">
+            <Button
+              variant="outline"
+              className="px-6 text-pink-500 border-pink-500 rounded-full hover:bg-pink-50"
+            >
+              View All Stories
+            </Button>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

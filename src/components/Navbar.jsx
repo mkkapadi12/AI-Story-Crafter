@@ -23,8 +23,8 @@ const Navbar = () => {
           <Link to="/discover" className="transition hover:text-yellow-300">
             Discover
           </Link>
-          <Link to="/gallery" className="transition hover:text-yellow-300">
-            Gallery
+          <Link to="/stories" className="transition hover:text-yellow-300">
+            Stories
           </Link>
           <Link to="/about" className="transition hover:text-yellow-300">
             About Us
