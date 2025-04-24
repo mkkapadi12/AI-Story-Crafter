@@ -30,4 +30,7 @@ const upload = multer({ storage });
 //Add new story
 router.route("/add").post(upload.single("image"), storyController.addStory);
 
+//Get a single story
+router.get("/:id", storyController.getSingleStory);
+
 module.exports = router;

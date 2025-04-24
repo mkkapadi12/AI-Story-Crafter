@@ -152,13 +152,14 @@ const CreateStory = () => {
   const saveStory = async () => {
     if (!image) return alert("Please select an image!");
     // if (!prompt) return alert("Please enter a prompt!");
-    console.log("image =>", image);
+    // console.log("image =>", image);
 
     const formData = new FormData();
     formData.append("image", image);
     formData.append("title", data.title);
     formData.append("story", data.story);
     formData.append("name", user.name);
+    formData.append("theme", selectedTheme);
     formData.append("createdBy", user._id);
 
     //For development : http://localhost:5002/api/story/add

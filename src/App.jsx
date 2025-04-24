@@ -18,6 +18,7 @@ import PrivateRoute from "./Private/PrivateRoute";
 import SignIn from "./Auth/SignIn";
 import SignUp from "./Auth/SignUp";
 import Logout from "./Auth/Logout";
+import SingleStory from "./pages/SingleStory";
 //components
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
           <Route exact path="/about" element={<About />} />
           <Route exact path="/discover" element={<Discover />} />
           <Route exact path="/stories" element={<Stories />} />
+          <Route exact path="/story/:id" element={<SingleStory />} />
 
           <Route
             exact

@@ -70,7 +70,7 @@ export default function Stories() {
           </h2>
 
           {loading ? (
-            <Loading loading="loading..." />
+            <Loading loadingText="loading..." />
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {stories.map((story) => (
@@ -79,7 +79,8 @@ export default function Stories() {
                   image={story.coverImage}
                   title={story.title}
                   description={story.story}
-                  category="Fiction"
+                  theme={story.theme}
+                  id={story._id}
                 />
               ))}
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ICONS } from "@/icons/icons";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "@/Context/AuthContext";
@@ -85,8 +85,8 @@ const Navbar = () => {
           <Link to="/discover" onClick={toggleMenu}>
             Discover
           </Link>
-          <Link to="/gallery" onClick={toggleMenu}>
-            Gallery
+          <Link to="/stories" onClick={toggleMenu}>
+            Stories
           </Link>
           <Link to="/about" onClick={toggleMenu}>
             About Us

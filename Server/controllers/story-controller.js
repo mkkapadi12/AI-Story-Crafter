@@ -27,12 +27,13 @@ const addStory = async (req, res) => {
     // console.log("REQ.BODY =>", req.body);
     // console.log("REQ.FILE =>", req.file);
 
-    let { title, story, name, createdBy } = req.body;
+    let { title, story, name, createdBy,theme } = req.body;
 
     let new_story = await STORY.create({
       title,
       story,
       name,
+      theme,
       createdBy,
       coverImage: req.file.path,
     });
@@ -48,23 +49,24 @@ const addStory = async (req, res) => {
 
 //get single story
 
-// const getSingleStory = async (req, res) => {
-//   try {
-//     const story = await STORY.findById(req.params.id);
+const getSingleStory = async (req, res) => {
+  try {
+    // console.log("ID", req.params.id);
+    const story = await STORY.findById(req.params.id);
 
-//     // If story not found
-//     if (!story) {
-//       return res.status(404).json({ error: "Story not found" });
-//     }
+    // If story not found
+    if (!story) {
+      return res.status(404).json({ error: "Story not found" });
+    }
 
-//     return res.status(200).json(story);
-//   } catch (error) {
-//     return res.status(500).json({ error: "Failed to fetch blog" });
-//   }
-// };
+    return res.status(200).json(story);
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to fetch story" });
+  }
+};
 
 module.exports = {
   getAllStory,
   addStory,
-  // getSingleStory,
+  getSingleStory,
 };

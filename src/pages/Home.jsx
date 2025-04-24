@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import HeroSection from "@/components/HeroSection";
 import WinterWonder from "@/components/WinterWonder";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const Home = () => {
   return (
@@ -85,6 +86,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 };

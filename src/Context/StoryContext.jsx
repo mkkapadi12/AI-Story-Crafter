@@ -8,6 +8,7 @@ const StoryContext = createContext();
 
 const StoryProvider = ({ children }) => {
   const [stories, setStories] = useState([]);
+  const [story, setStory] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const fetchStories = async () => {
@@ -27,12 +28,27 @@ const StoryProvider = ({ children }) => {
     }
   };
 
+  //GET SINGLE STORY
+  const fetchSingleStory = async (id) => {
+    // console.log("ID", id);
+
+    try {
+      const response = await axios.get(`https://ai-story-crafter-server.vercel.app/api/story/${id}`);
+      setStory(response.data);
+      // console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching Story:", error);
+    }
+  };
+
   useEffect(() => {
     fetchStories();
   }, []);
 
   return (
-    <StoryContext.Provider value={{ stories, loading, fetchStories }}>
+    <StoryContext.Provider
+      value={{ stories, loading, fetchStories, fetchSingleStory, story }}
+    >
       {children}
     </StoryContext.Provider>
   );

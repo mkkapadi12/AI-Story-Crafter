@@ -21,6 +21,9 @@ const StorySchema = new Schema(
       ref: "User",
       required: true,
     },
+    theme: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
