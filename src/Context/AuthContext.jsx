@@ -7,6 +7,7 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(
     localStorage.getItem("storytoken") || null
   );
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(""); // Initialize with null to indicate no user initially
   const isLoggedIn = !!token;
 
@@ -34,6 +35,7 @@ const AuthProvider = ({ children }) => {
   const userAuthentication = async () => {
     if (!token) return; // Skip if no token is available
     try {
+      setLoading(true); // Set loading to true while fetching user data
       const res = await axios.get(
         "https://ai-story-crafter-server.vercel.app/api/auth/user",
         {
@@ -43,6 +45,7 @@ const AuthProvider = ({ children }) => {
         }
       );
       const userInfo = res.data;
+      setLoading(false); // Set loading to false after fetching user data
       setUser(userInfo.userData); // Update user state
     } catch (error) {
       console.error("Can't fetch user data:", error);
@@ -71,6 +74,7 @@ const AuthProvider = ({ children }) => {
         token,
         user,
         isLoggedIn,
+        loading,
         authorizationToken,
       }}
     >

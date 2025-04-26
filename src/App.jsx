@@ -19,6 +19,7 @@ import SignIn from "./Auth/SignIn";
 import SignUp from "./Auth/SignUp";
 import Logout from "./Auth/Logout";
 import SingleStory from "./pages/SingleStory";
+import Profile from "./pages/Profile";
 //components
 
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
               </PrivateRoute>
             }
           />
+          <Route excat path="/profile" element={<Profile />} />
 
           {/* Error Page */}
           <Route exact path="*" element={<NotFound />} />
