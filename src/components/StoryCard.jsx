@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function StoryCard({ image, title, description, theme, id }) {
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-md">
+    <Card className="justify-between overflow-hidden transition-all hover:shadow-md">
       <div className="relative w-full h-64 overflow-hidden">
         <img
           src={image || "https://placehold.co/600x400/png"}
@@ -24,7 +24,9 @@ export default function StoryCard({ image, title, description, theme, id }) {
         <h3 className="mb-2 text-xl font-semibold">{title}</h3>
         <div
           className="my-4 output"
-          dangerouslySetInnerHTML={{ __html: description.slice(0, 100) }}
+          dangerouslySetInnerHTML={{
+            __html: description.slice(0, 70) + "...",
+          }}
         />
         {/* <p className="text-sm text-gray-600">{description.slice(0, 20)}</p> */}
       </CardContent>

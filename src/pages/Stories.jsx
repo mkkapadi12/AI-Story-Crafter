@@ -6,15 +6,16 @@ import FeaturedStory from "@/components/FeaturedStory";
 import Navbar from "@/components/Navbar";
 import { useStoryContext } from "@/Context/StoryContext";
 import Loading from "@/helpers/Loading";
+import Footer from "@/components/Footer";
 
 export default function Stories() {
   const { stories, loading } = useStoryContext();
 
   return (
-    <main className="min-h-screen bg-white">
+    <section className="min-h-screen bg-white">
       <Navbar />
       {/* Top Stories Hero Section */}
-      <section className="relative py-16 mx-auto bg-blue-50 max-w-7xl">
+      <main className="relative top-0 py-10 mx-auto rounded-lg bg-blue-50 max-w-7xl">
         <div className="container px-4 mx-auto">
           <h1 className="mb-6 text-3xl font-bold text-center text-blue-600 md:text-4xl lg:text-5xl">
             Top Stories
@@ -38,7 +39,7 @@ export default function Stories() {
         {/* Decorative circles */}
         <div className="absolute w-12 h-12 bg-green-500 rounded-full left-10 top-20 opacity-70"></div>
         <div className="absolute w-10 h-10 bg-yellow-400 rounded-full right-10 top-10 opacity-70"></div>
-      </section>
+      </main>
 
       {/* Filter Section */}
       <section className="py-6 mx-auto border-b border-gray-200 max-w-7xl">
@@ -96,6 +97,8 @@ export default function Stories() {
           </div>
         </div>
       </section>
-    </main>
+      {/* Footer */}
+      <Footer />
+    </section>
   );
 }

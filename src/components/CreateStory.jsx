@@ -112,7 +112,7 @@ const CreateStory = () => {
                 ]
               : []),
             {
-              text: `Create a story based on the image and the following prompt. The story should be imaginative, engaging, and related to the theme and must add icons and emoji. In the last of story give moral of the story.In starting of the story give also title.\n\n${prompt} remember to use the theme ${selectedTheme}.\n\n And give space between title and story.`,
+              text: `Create a story based on the image and the following prompt. The story should be imaginative, engaging, and related to the theme and must add icons and emoji. In the last of story give moral of the story in blod.In starting of the story give also title in bold.\n\n${prompt} remember to use the theme ${selectedTheme}.\n\n And give space between title, story and moral\n\n. Remember one most thing in answer do not write any thing of like this : "Here's a story based on your prompt" and do not write any note just write story.`,
             },
           ],
         },
@@ -151,6 +151,7 @@ const CreateStory = () => {
 
   const saveStory = async () => {
     if (!image) return alert("Please select an image!");
+    if (!data.title) return alert("Please enter a title!");
     // if (!prompt) return alert("Please enter a prompt!");
     // console.log("image =>", image);
 
@@ -309,7 +310,7 @@ const CreateStory = () => {
         <div className="pt-4 text-center">
           <Button
             type="submit"
-            className="px-8 py-2 text-lg font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700"
+            className="px-8 py-2 text-lg font-semibold text-white transition-transform duration-300 rounded-lg shadow-lg bg-gradient-to-r from-blue-500 to-blue-700 hover:scale-105"
           >
             Generate Story
           </Button>
@@ -325,7 +326,9 @@ const CreateStory = () => {
         <>
           <div
             className="my-4 output"
-            dangerouslySetInnerHTML={{ __html: output }}
+            dangerouslySetInnerHTML={{
+              __html: output.replace("&lt;br&gt;", "<br />"),
+            }}
           />
           {output && (
             <>

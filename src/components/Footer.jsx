@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer className="py-12 bg-gray-100">
-      <div className="container px-4 mx-auto">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+      <div className="container px-4 mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-8 sm:text-center md:grid-cols-4">
           <div>
             <h3 className="mb-4 text-xl font-bold text-blue-600">
               StoryCrafter
@@ -88,7 +88,7 @@ export default function Footer() {
 
           <div>
             <h4 className="mb-4 font-semibold">Connect</h4>
-            <div className="flex space-x-4">
+            <div className="flex items-center space-x-4 sm:justify-center">
               <Link to="#" className="text-gray-600 hover:text-blue-600">
                 <svg
                   className="w-6 h-6"
