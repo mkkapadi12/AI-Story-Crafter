@@ -4,25 +4,37 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuthContext } from "@/Context/AuthContext";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import Loading from "@/helpers/Loading";
+// import Loading from "@/helpers/Loading";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 const Profile = () => {
-  const { user } = useAuthContext();
-  console.log(user);
+  const {
+    user,
+    profileUpdate,
+    handleImageChange,
+    imagePreview,
+    setImagePreview,
+  } = useAuthContext();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  // console.log("user: ", user);
+
   const onSubmit = (data) => {
     // Add update logic here
     try {
-      //   profileUpdate(data);
+      profileUpdate(data);
     } catch (error) {
       console.log("Form not Submitted !!");
     }
+
+    
+
   };
 
   return (
@@ -41,27 +53,49 @@ const Profile = () => {
             <>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="flex flex-col items-start">
-                  <label htmlFor="profile" className="w-24 h-24 cursor-pointer">
-                    <Avatar className="w-24 h-24 cursor-pointer">
-                      <AvatarImage
-                        src={user?.profileImage}
-                        alt={"story"}
-                        className="object-cover !w-full h-full rounded-full"
+                  {!imagePreview ? (
+                    <>
+                      <label
+                        htmlFor="profile"
+                        className="w-24 h-24 cursor-pointer"
+                      >
+                        <Avatar className="w-24 h-24 cursor-pointer">
+                          <AvatarImage
+                            src={user?.profileImage}
+                            alt={"story"}
+                            className="object-cover !w-full h-full rounded-full"
+                          />
+                          <AvatarFallback className="!text-5xl">
+                            {user?.name?.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                      </label>
+                      <input
+                        type="file"
+                        id="profile"
+                        accept="image/*"
+                        name="profile"
+                        onChange={(e) => handleImageChange(e)}
+                        className="hidden"
                       />
-                      <AvatarFallback className="!text-5xl">
-                        {user?.name?.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                  </label>
-                  <input
-                    type="file"
-                    id="profile"
-                    accept="image/*"
-                    // {...register("profile")}
-                    name="profile"
-                    // onChange={(e) => handleFileChange(e)}
-                    className="hidden"
-                  />
+                    </>
+                  ) : (
+                    <>
+                      <div className="relative w-24 h-24 cursor-pointer">
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="object-cover !w-full h-full rounded-full"
+                        />
+                        <button
+                          onClick={() => setImagePreview(null)}
+                          className="absolute px-2 py-1 text-xs font-semibold text-gray-600 bg-white border border-gray-300 rounded-full top-2 right-2 hover:bg-gray-100"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -75,7 +109,7 @@ const Profile = () => {
                     <input
                       id="firstName"
                       type="text"
-                      defaultValue={user.name}
+                      defaultValue={user?.firstName}
                       className={`w-full  p-2 mt-2 text-black border-none rounded ring-1 ring-btn ring-offset-2 placeholder:text-text focus:outline-none focus:ring ${
                         errors.name ? "border-red-500" : ""
                       }`}
@@ -100,7 +134,7 @@ const Profile = () => {
                     <input
                       id="lastName"
                       type="text"
-                      defaultValue={user.lastName}
+                      defaultValue={user?.lastName}
                       className={`w-full p-2 mt-2 text-black border-none rounded ring-1 ring-btn ring-offset-2 placeholder:text-text focus:outline-none focus:ring ${
                         errors.name ? "border-red-500" : ""
                       }`}
@@ -125,7 +159,7 @@ const Profile = () => {
                     <input
                       id="phone"
                       type="number"
-                      defaultValue={user.phone}
+                      defaultValue={user?.phone}
                       className={`w-full p-2 mt-2 text-black border-none rounded ring-1 ring-btn ring-offset-2 placeholder:text-text focus:outline-none focus:ring ${
                         errors.name ? "border-red-500" : ""
                       }`}
@@ -163,12 +197,12 @@ const Profile = () => {
                     )}
                   </div>
                 </div>
-                <button
+                <Button
                   type="submit"
-                  className="w-[200px] px-2 py-3 text-white bg-pink-500 rounded-md shadow hover:bg-pink-600"
+                  className="text-white bg-blue-500 rounded-md shadow cursor-pointer hover:bg-blue-600"
                 >
                   Update Profile
-                </button>
+                </Button>
               </form>
             </>
           ) : (
@@ -196,24 +230,18 @@ const Profile = () => {
             <h2 className="text-lg font-semibold">Account Information</h2>
             <div className="flex flex-col items-start justify-between gap-4 mt-4 sm:items-center sm:flex-row">
               {/* change path according route */}
-              {/* <Link
-                to={"/"}
-                className="flex items-center justify-center flex-1 w-full px-4 py-2 text-green-600 bg-green-100 rounded-md shadow hover:bg-green-200"
-              >
-                <button>My Orders</button>
-              </Link> */}
 
               <Link
                 to={"/private/stories"}
-                className="flex items-center justify-center flex-1 w-full px-4 py-2 text-green-600 bg-green-100 rounded-md shadow hover:bg-green-200"
+                className="flex items-center justify-center flex-1 w-full px-4 py-2 text-blue-600 bg-blue-100 rounded-md shadow cursor-pointer hover:bg-blue-200"
               >
-                <button>Your Private Stories</button>
+                <Button>Your Private Stories</Button>
               </Link>
 
               {/* change path according route */}
               <Link
                 to="/wishlist"
-                className="flex items-center justify-center flex-1 w-full px-4 py-2 text-green-600 bg-green-100 rounded-md shadow hover:bg-green-200"
+                className="flex items-center justify-center flex-1 w-full px-4 py-2 text-blue-600 bg-blue-100 rounded-md shadow cursor-pointer hover:bg-blue-200"
               >
                 <button>My Wishlists</button>
               </Link>

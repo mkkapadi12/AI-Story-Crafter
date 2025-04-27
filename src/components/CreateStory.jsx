@@ -23,7 +23,6 @@ const API_KEY = process.env.GEMINI_API_KEY;
 const CreateStory = () => {
   const { user } = useAuthContext();
   const { fetchStories } = useStoryContext();
-
   const [selectedTheme, setSelectedTheme] = useState("anime");
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);

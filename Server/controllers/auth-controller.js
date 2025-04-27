@@ -74,4 +74,41 @@ const user = async (req, res) => {
   }
 };
 
-module.exports = { home, register, login, user };
+//Update Profile Auth route Controller :
+const updateProfile = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const updatedData = req.body; // Now req.body will NOT be undefined 🎯
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required." });
+    }
+
+    // If file is uploaded, get the Cloudinary URL
+    if (req.file) {
+      updatedData.profileImage = req.file.path;
+    }
+
+    console.log("Updated Data:", updatedData);
+    console.log("User ID:", userId);
+
+    const updatedUser = await USER.findByIdAndUpdate(userId, updatedData, {
+      new: true,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ msg: "User not found!" });
+    }
+
+    console.log("Updated User:", updatedUser);
+
+    return res.status(200).json({
+      msg: "Profile updated successfully!",
+      user: updatedUser,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error." });
+  }
+};
+
+module.exports = { home, register, login, user, updateProfile };
