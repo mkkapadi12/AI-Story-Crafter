@@ -2,6 +2,20 @@ import React, { useState } from "react";
 import { ICONS } from "@/icons/icons";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "@/Context/AuthContext";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from "./ui/menubar";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +25,11 @@ const Navbar = () => {
   return (
     <header className="bg-[#007BFF] text-white shadow-md sticky top-0 z-50">
       <div className="container flex items-center justify-between px-5 py-2.5 mx-auto">
+        {/* Hamburger */}
+        <button onClick={toggleMenu} className="md:hidden">
+          {isOpen ? <ICONS.CROSS size={28} /> : <ICONS.MENU size={28} />}
+        </button>
+
         <Link to="/" className="text-2xl font-bold tracking-wide">
           StoryCrafter
         </Link>
@@ -31,38 +50,56 @@ const Navbar = () => {
           </Link>
         </nav>
 
-        <div className="items-center hidden gap-4 md:flex">
-          {!isLoggedIn ? (
-            <>
-              <Link
-                to="/signup"
-                className="bg-white text-[#007BFF] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition"
-              >
-                Sign Up
-              </Link>
-              <Link
-                to="/login"
-                className="bg-white text-[#007BFF] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition"
-              >
-                Login
-              </Link>
-            </>
+        {/* menubar */}
+        <div className="items-center gap-4 md:flex">
+          {isLoggedIn ? (
+            <Menubar>
+              <MenubarMenu>
+                <MenubarTrigger className="!p-0">
+                  <Avatar className="w-10 h-10 duration-300 cursor-pointer tsmransition-all ring-1 ring-white hover:ring-2 md:w-12 md:h-12">
+                    <AvatarImage
+                      src={user?.profileImage}
+                      alt="profile"
+                      className="object-cover w-full h-full rounded-full"
+                    />
+                    <AvatarFallback className="text-xl text-blue-500 bg-blue-200">
+                      {user?.name?.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                </MenubarTrigger>
+                <MenubarContent className="bg-white shadow-md rounded-lg min-w-[180px] py-2">
+                  <div className="px-4 py-2 text-center">
+                    <p className="text-sm text-muted-foreground">Hello 👋</p>
+                    <p className="font-bold text-blue-600 ">{user?.name}</p>
+                  </div>
+                  <MenubarSeparator className="my-2" />
+                  <Link to="/profile">
+                    <MenubarItem className="transition-colors cursor-pointer hover:bg-blue-100 hover:text-blue-600">
+                      My Profile
+                    </MenubarItem>
+                  </Link>
+                  <Link to="/private/stories">
+                    <MenubarItem className="transition-colors cursor-pointer hover:bg-blue-100 hover:text-blue-600">
+                      Settings
+                    </MenubarItem>
+                  </Link>
+                  <MenubarSeparator className="my-2" />
+                  <Link to="/logout">
+                    <MenubarItem className="transition-colors cursor-pointer hover:bg-red-100 hover:text-red-500">
+                      Logout
+                    </MenubarItem>
+                  </Link>
+                </MenubarContent>
+              </MenubarMenu>
+            </Menubar>
           ) : (
-            <>
-              <Link
-                to="/logout"
-                className="bg-white text-[#007BFF] px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition"
-              >
-                Logout
-              </Link>
-            </>
+            <Link to="/login">
+              <Button className="text-white bg-pink-500 hover:bg-pink-600">
+                Log In
+              </Button>
+            </Link>
           )}
         </div>
-
-        {/* Hamburger */}
-        <button onClick={toggleMenu} className="md:hidden">
-          {isOpen ? <ICONS.CROSS size={28} /> : <ICONS.MENU size={28} />}
-        </button>
       </div>
 
       {/* Slide-in Side Menu (Mobile) */}
