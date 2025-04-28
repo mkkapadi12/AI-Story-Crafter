@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import StoryCard from "@/components/StoryCard";
@@ -10,6 +10,10 @@ import Footer from "@/components/Footer";
 
 export default function Stories() {
   const { stories, loading } = useStoryContext();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <section className="min-h-screen bg-white">

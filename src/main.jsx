@@ -10,11 +10,11 @@ import { StoryProvider } from "./Context/StoryContext";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <StoryProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <StoryProvider>
           <App />
-        </AuthProvider>
-      </StoryProvider>
+        </StoryProvider>
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

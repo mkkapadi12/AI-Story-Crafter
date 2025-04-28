@@ -1,196 +1,28 @@
-import React, { useState } from "react";
-import {
-  GoogleGenerativeAI,
-  HarmBlockThreshold,
-  HarmCategory,
-} from "@google/generative-ai";
-import Base64 from "base64-js";
-import MarkdownIt from "markdown-it";
-import { Upload, LightbulbIcon } from "lucide-react";
+import React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import Loading from "@/helpers/Loading";
-import { useAuthContext } from "@/Context/AuthContext";
-import axios from "axios";
-import toast from "react-hot-toast";
 import { useStoryContext } from "@/Context/StoryContext";
-
-// Replace with your actual API key
-const API_KEY = process.env.GEMINI_API_KEY;
+import { ICONS } from "@/icons/icons";
 
 const CreateStory = () => {
-  const { user } = useAuthContext();
-  const { fetchStories } = useStoryContext();
-  const [selectedTheme, setSelectedTheme] = useState("anime");
-  const [loading, setLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState(null);
-  const [prompt, setPrompt] = useState("");
-  const [output, setOutput] = useState("");
-  //hadling image upload
-  const [image, setImage] = useState(null);
-  const [data, setData] = useState({
-    title: "",
-    story: "",
-    user,
-  });
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file && file.type.startsWith("image/")) {
-      setImage(file);
-      const previewURL = URL.createObjectURL(file);
-      // console.log("previewURL :", previewURL);
-
-      setImagePreview(previewURL);
-    } else {
-      setImage(null);
-      setImagePreview(null);
-      // Optionally, show an error message
-    }
-  };
-
-  // console.log("imagePreview :", imagePreview);
-
-  const themes = [
-    { id: "love", name: "Love", icon: "❤️" },
-    { id: "sad", name: "Sad", icon: "😢" },
-    { id: "melancholy", name: "Melancholy", icon: "😭" },
-    { id: "happy", name: "Happy", icon: "🎉" },
-    { id: "tragic", name: "Tragic", icon: "🥀" },
-    { id: "sciFi", name: "Sci-Fi", icon: "👽" },
-    { id: "thriller", name: "Thriller", icon: "🔪" },
-    { id: "adventure", name: "Adventure", icon: "🧗" },
-    { id: "comedy", name: "Comedy", icon: "😂" },
-    { id: "horror", name: "Horror", icon: "👻" },
-    { id: "crime", name: "Crime", icon: "🕵️" },
-    { id: "mystery", name: "Mystery", icon: "🧩" },
-    { id: "drama", name: "Drama", icon: "🎭" },
-    { id: "romance", name: "Romance", icon: "💘" },
-    { id: "animation", name: "Animation", icon: "🎨" },
-  ];
-
-  // console.log("prompt :", prompt);
-  // console.log("selectedTheme :", selectedTheme);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // Prevent generating if neither image nor prompt is provided
-    if (!prompt.trim() && !image) {
-      setOutput(
-        "<p class='text-red-500 font-medium text-center my-4'>Please provide an image or a story description to generate a story.</p>"
-      );
-      return;
-    }
-    setLoading(true);
-
-    try {
-      let imageBase64 = "";
-      if (image) {
-        imageBase64 = await new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsArrayBuffer(image);
-          reader.onload = () => {
-            resolve(Base64.fromByteArray(new Uint8Array(reader.result)));
-          };
-          reader.onerror = reject;
-        });
-      }
-
-      const contents = [
-        {
-          role: "user",
-          parts: [
-            ...(image
-              ? [
-                  {
-                    inline_data: { mime_type: "image/jpeg", data: imageBase64 },
-                  },
-                ]
-              : []),
-            {
-              text: `Create a story based on the image and the following prompt. The story should be imaginative, engaging, and related to the theme and must add icons and emoji. In the last of story give moral of the story in blod.In starting of the story give also title in bold.\n\n${prompt} remember to use the theme ${selectedTheme}.\n\n And give space between title, story and moral\n\n. Remember one most thing in answer do not write any thing of like this : "Here's a story based on your prompt" and do not write any note just write story.`,
-            },
-          ],
-        },
-      ];
-
-      const genAI = new GoogleGenerativeAI(API_KEY);
-      const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash", // or gemini-1.5-pro
-        safetySettings: [
-          {
-            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-            threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-          },
-        ],
-      });
-
-      const result = await model.generateContentStream({ contents });
-
-      let buffer = [];
-      let md = new MarkdownIt();
-      for await (const response of result.stream) {
-        buffer.push(response.text());
-        setOutput(md.render(buffer.join("")));
-        setData((prev) => ({ ...prev, story: md.render(buffer.join("")) }));
-        setLoading(false);
-      }
-      // setPrompt("");
-    } catch (error) {
-      setOutput((prevOutput) => prevOutput + "<hr>" + error);
-    }
-  };
-
-  //for debugging purpose
-  // console.log("data :", data);
-  // console.log("output :", output);
-
-  const saveStory = async () => {
-    if (!image) return alert("Please select an image!");
-    if (!data.title) return alert("Please enter a title!");
-    // if (!prompt) return alert("Please enter a prompt!");
-    // console.log("image =>", image);
-
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("title", data.title);
-    formData.append("story", data.story);
-    formData.append("name", user.name);
-    formData.append("theme", selectedTheme);
-    formData.append("createdBy", user._id);
-
-    //For development : http://localhost:5002/api/story/add
-    //For production : https://ai-story-crafter-server.vercel.app/api/story/add
-
-    try {
-      const res = await axios
-        .post(
-          "https://ai-story-crafter-server.vercel.app/api/story/add",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then((res) => {
-          // console.log("Story created successfully!", res.data);
-          toast.success("Story created successfully!");
-          fetchStories();
-          setData({ title: "", story: "" });
-        })
-        .catch((error) => {
-          console.error("Error submitting story !!", error);
-          toast.error(error.message);
-        });
-    } catch (error) {
-      console.error("Error submitting story !!", error);
-      toast.error(error.message);
-    }
-  };
+  const {
+    postPublic,
+    output,
+    setData,
+    handleImageChange,
+    loading,
+    prompt,
+    setPrompt,
+    imagePreview,
+    setImagePreview,
+    handleSubmit,
+    themes,
+    selectedTheme,
+    setSelectedTheme,
+  } = useStoryContext();
 
   return (
     <div className="w-full max-w-3xl px-4 py-10 mx-auto">
@@ -216,7 +48,7 @@ const CreateStory = () => {
                   htmlFor="image-upload"
                   className="flex flex-col items-center justify-center cursor-pointer"
                 >
-                  <Upload className="w-10 h-10 mb-2 text-purple-500" />
+                  <ICONS.UPLOAD className="w-10 h-10 mb-2 text-purple-500" />
                   <p className="font-medium text-purple-600">
                     Click to upload an image
                   </p>
@@ -273,7 +105,7 @@ const CreateStory = () => {
             className="w-full min-h-[100px] border-gray-300"
           />
           <div className="flex items-start gap-2 mt-2 text-sm text-gray-700">
-            <LightbulbIcon className="w-5 h-5 mt-1 text-yellow-500" />
+            <ICONS.LIGHTBULB className="w-5 h-5 mt-1 text-yellow-500" />
             <p>
               Tip: Mention a mood, scene, or character to guide the AI — like a
               lost traveler in a snowy forest.
@@ -338,12 +170,20 @@ const CreateStory = () => {
                   <p className="mb-2 text-sm text-gray-500">
                     If you like the story, you can save it!
                   </p>
-                  <Button
-                    onClick={saveStory}
-                    className="text-white bg-purple-600 cursor-pointer hover:bg-purple-700"
-                  >
-                    Save
-                  </Button>
+                  <div className="flex items-center justify-center gap-2">
+                    <Button
+                      onClick={postPublic}
+                      className="text-white bg-purple-600 cursor-pointer hover:bg-purple-700"
+                    >
+                      Post Public
+                    </Button>
+                    <Button
+                      // onClick={postPrivate}
+                      className="text-white bg-purple-600 cursor-pointer hover:bg-purple-700"
+                    >
+                      Post Private
+                    </Button>
+                  </div>
                 </div>
               )}
             </>
