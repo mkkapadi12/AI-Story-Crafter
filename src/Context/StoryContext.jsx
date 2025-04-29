@@ -116,7 +116,7 @@ const StoryProvider = ({ children }) => {
         setData((prev) => ({ ...prev, story: md.render(buffer.join("")) }));
         setLoading(false);
       }
-      // setPrompt("");
+      setLoading(false);
     } catch (error) {
       setOutput((prevOutput) => prevOutput + "<hr>" + error);
     }
@@ -150,7 +150,11 @@ const StoryProvider = ({ children }) => {
           // console.log("Story created successfully!", res.data);
           toast.success("Story created successfully!");
           fetchStories();
-          setData({ title: "", story: "" });
+          setLoading(false);
+          setData((prev) => ({ ...prev, story: null, title: null }));
+          setOutput("");
+          setImagePreview(null);
+          setImage(null);
           return <Navigate to="/stories" />;
         })
         .catch((error) => {
@@ -191,7 +195,12 @@ const StoryProvider = ({ children }) => {
           // console.log("Story created successfully!", res.data);
           toast.success("Story created successfully!");
           fetchStories();
-          setData({ title: "", story: "" });
+          setLoading(false);
+          setData((prev) => ({ ...prev, story: null, title: null }));
+          setOutput("");
+          setImagePreview(null);
+          setImage(null);
+          return <Navigate to="/stories" />;
         })
         .catch((error) => {
           console.error("Error submitting story !!", error);
@@ -248,7 +257,6 @@ const StoryProvider = ({ children }) => {
         story._id !== storyId &&
         story.isPrivate == false // optional: exclude the current story
     );
-    console.log("related Storries :", relatedStories);
     setRelated(relatedStories);
   };
 

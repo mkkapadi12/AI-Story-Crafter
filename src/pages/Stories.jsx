@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import StoryCard from "@/components/StoryCard";
@@ -10,8 +10,16 @@ import Footer from "@/components/Footer";
 
 export default function Stories() {
   const { stories, loading } = useStoryContext();
+  const [selectedTab, setSelectedTab] = useState("all");
 
-  const filterStories = stories.filter((story) => story.isPrivate == false);
+  const publicStories = stories.filter((story) => story.isPrivate == false);
+
+  const filteredStories =
+    selectedTab === "all"
+      ? publicStories
+      : publicStories.filter((story) =>
+          story.theme.toLowerCase().includes(selectedTab.toLowerCase())
+        );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -54,15 +62,17 @@ export default function Stories() {
             <h2 className="text-xl font-semibold text-gray-800">
               Browse Stories
             </h2>
-            <Tabs defaultValue="all" className="w-full md:w-auto">
+            <Tabs
+              defaultValue="all"
+              value={selectedTab}
+              onValueChange={setSelectedTab}
+              className="w-full md:w-auto"
+            >
               <TabsList className="grid w-full grid-cols-4 md:w-auto md:grid-cols-5">
                 <TabsTrigger value="all">All</TabsTrigger>
-                <TabsTrigger value="vintage">Vintage</TabsTrigger>
-                <TabsTrigger value="futuristic">Futuristic</TabsTrigger>
-                <TabsTrigger value="nature">Nature</TabsTrigger>
-                <TabsTrigger value="seasonal" className="hidden md:inline-flex">
-                  Seasonal
-                </TabsTrigger>
+                <TabsTrigger value="happy">Happy</TabsTrigger>
+                <TabsTrigger value="comedy">Comedy</TabsTrigger>
+                <TabsTrigger value="love">Love</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
@@ -80,7 +90,7 @@ export default function Stories() {
             <Loading loadingText="loading..." />
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filterStories.map((story) => (
+              {filteredStories.map((story) => (
                 <StoryCard
                   key={story._id}
                   image={story.coverImage}

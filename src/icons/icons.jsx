@@ -1,7 +1,10 @@
 import {
+  Bookmark,
   Camera,
+  Heart,
   LightbulbIcon,
   Menu,
+  Share2,
   Sparkles,
   Upload,
   X,
@@ -16,4 +19,7 @@ export const ICONS = {
   LIGHTBULB: LightbulbIcon,
   MENU: Menu,
   CROSS: X,
+  SAVE: Bookmark,
+  SHARE: Share2,
+  LIKE: Heart,
 };
