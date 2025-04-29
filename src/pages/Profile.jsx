@@ -32,9 +32,6 @@ const Profile = () => {
     } catch (error) {
       console.log("Form not Submitted !!");
     }
-
-    
-
   };
 
   return (
@@ -235,7 +232,7 @@ const Profile = () => {
                 to={"/private/stories"}
                 className="flex items-center justify-center flex-1 w-full px-4 py-2 text-blue-600 bg-blue-100 rounded-md shadow cursor-pointer hover:bg-blue-200"
               >
-                <Button>Your Private Stories</Button>
+                <button>My Private Stories</button>
               </Link>
 
               {/* change path according route */}

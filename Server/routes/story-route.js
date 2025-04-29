@@ -29,6 +29,9 @@ const upload = multer({ storage });
 
 //Add new story
 router.route("/add").post(upload.single("image"), storyController.addStory);
+router
+  .route("/private")
+  .post(upload.single("image"), storyController.postPrivateStory);
 
 //Get a single story
 router.get("/:id", storyController.getSingleStory);

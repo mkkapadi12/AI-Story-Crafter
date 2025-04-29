@@ -4,7 +4,7 @@ import { GlobalStyle } from "./GlobalStyles";
 //rrd
 import { BrowserRouter as Main, Route, Routes } from "react-router-dom";
 //helper
-
+import PrivateRoute from "./Private/PrivateRoute";
 //pages
 import Home from "./pages/Home";
 import NotFound from "./pages/Error";
@@ -12,15 +12,13 @@ import About from "./pages/About";
 import Discover from "./pages/Discover";
 import StoryGenerator from "./pages/StoryGenerator";
 import Stories from "./pages/Stories";
-
-import PrivateRoute from "./Private/PrivateRoute";
+import SingleStory from "./pages/SingleStory";
+import Profile from "./pages/Profile";
+import PrivateStory from "./pages/PrivateStory";
 //Auth
 import SignIn from "./Auth/SignIn";
 import SignUp from "./Auth/SignUp";
 import Logout from "./Auth/Logout";
-import SingleStory from "./pages/SingleStory";
-import Profile from "./pages/Profile";
-//components
 
 const App = () => {
   return (
@@ -46,6 +44,15 @@ const App = () => {
             element={
               <PrivateRoute>
                 <StoryGenerator />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            exact
+            path="/private/stories"
+            element={
+              <PrivateRoute>
+                <PrivateStory />
               </PrivateRoute>
             }
           />

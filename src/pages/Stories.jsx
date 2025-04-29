@@ -11,6 +11,8 @@ import Footer from "@/components/Footer";
 export default function Stories() {
   const { stories, loading } = useStoryContext();
 
+  const filterStories = stories.filter((story) => story.isPrivate == false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -78,7 +80,7 @@ export default function Stories() {
             <Loading loadingText="loading..." />
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {stories.map((story) => (
+              {filterStories.map((story) => (
                 <StoryCard
                   key={story._id}
                   image={story.coverImage}
@@ -86,6 +88,7 @@ export default function Stories() {
                   description={story.story}
                   theme={story.theme}
                   id={story._id}
+                  createdBy={story.createdBy}
                 />
               ))}
             </div>

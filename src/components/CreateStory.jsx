@@ -10,6 +10,7 @@ import { ICONS } from "@/icons/icons";
 const CreateStory = () => {
   const {
     postPublic,
+    postPrivate,
     output,
     setData,
     handleImageChange,
@@ -178,7 +179,7 @@ const CreateStory = () => {
                       Post Public
                     </Button>
                     <Button
-                      // onClick={postPrivate}
+                      onClick={postPrivate}
                       className="text-white bg-purple-600 cursor-pointer hover:bg-purple-700"
                     >
                       Post Private

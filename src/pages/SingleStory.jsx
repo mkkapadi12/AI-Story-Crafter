@@ -58,9 +58,15 @@ const SingleStory = () => {
                   {story?.title}
                 </h1>
                 <div className="flex items-center gap-4">
-                  <Avatar>
-                    <AvatarImage src={""} alt={"story"} />
-                    <AvatarFallback>{story?.name?.charAt(0)}</AvatarFallback>
+                  <Avatar className="!w-9 !h-9 duration-300 cursor-pointer tsmransition-all ring-1 ring-blue-500 hover:ring-2 md:w-12 md:h-12">
+                    <AvatarImage
+                      src={story?.createdBy?.profileImage}
+                      alt="profile"
+                      className="object-cover w-full h-full rounded-full"
+                    />
+                    <AvatarFallback className="text-xl text-blue-500 bg-blue-200">
+                      {story?.createdBy?.name?.charAt(0)}
+                    </AvatarFallback>
                   </Avatar>
                   <div>
                     <p className="font-medium">{story?.name}</p>
@@ -152,6 +158,7 @@ const SingleStory = () => {
                       description={story.story}
                       theme={story.theme}
                       id={story._id}
+                      createdBy={story.createdBy}
                     />
                   ))}
                 </div>

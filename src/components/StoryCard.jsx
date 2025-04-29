@@ -3,8 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
-export default function StoryCard({ image, title, description, theme, id }) {
+export default function StoryCard({
+  image,
+  title,
+  description,
+  theme,
+  id,
+  createdBy,
+}) {
   return (
     <Card className="justify-between overflow-hidden transition-all hover:shadow-md">
       <div className="relative w-full h-64 overflow-hidden">
@@ -17,11 +25,26 @@ export default function StoryCard({ image, title, description, theme, id }) {
 
       <CardContent className="p-4">
         <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-center gap-2">
+            <Avatar className="!w-9 !h-9 duration-300 cursor-pointer tsmransition-all ring-1 ring-white hover:ring-2 md:w-12 md:h-12">
+              <AvatarImage
+                src={createdBy?.profileImage}
+                alt="profile"
+                className="object-cover w-full h-full rounded-full"
+              />
+              <AvatarFallback className="text-xl text-blue-500 bg-blue-200">
+                {createdBy?.name?.charAt(0)}
+              </AvatarFallback>
+            </Avatar>
+            <h1>Created By : {createdBy?.name}</h1>
+          </div>
           <Badge variant="outline" className="text-blue-600 bg-blue-50">
             {theme}
           </Badge>
         </div>
-        <h3 className="mb-2 text-xl font-semibold">{title}</h3>
+        <h3 className="mb-2 text-xl font-semibold ">
+          Title : <span className="text-blue-500">{title}</span>
+        </h3>
         <div
           className="my-4 output"
           dangerouslySetInnerHTML={{

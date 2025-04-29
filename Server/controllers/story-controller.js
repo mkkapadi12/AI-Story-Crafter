@@ -27,7 +27,7 @@ const addStory = async (req, res) => {
     // console.log("REQ.BODY =>", req.body);
     // console.log("REQ.FILE =>", req.file);
 
-    let { title, story, name, createdBy,theme } = req.body;
+    let { title, story, name, createdBy, theme } = req.body;
 
     let new_story = await STORY.create({
       title,
@@ -47,12 +47,40 @@ const addStory = async (req, res) => {
   }
 };
 
+//post private story
+const postPrivateStory = async (req, res) => {
+  try {
+    // console.log("REQ.BODY =>", req.body);
+    // console.log("REQ.FILE =>", req.file);
+
+    let { title, story, name, createdBy, theme } = req.body;
+
+    let private_story = await STORY.create({
+      title,
+      story,
+      name,
+      theme,
+      createdBy,
+      coverImage: req.file.path,
+      isPrivate: true,
+    });
+
+    // Save the story
+    return res
+      .status(201)
+      .json({ msg: "Story Created !", Story: private_story });
+  } catch (error) {
+    console.error("Error saving private story:", error);
+    return res.status(500).json({ error: "Failed to save private story" });
+  }
+};
+
 //get single story
 
 const getSingleStory = async (req, res) => {
   try {
     // console.log("ID", req.params.id);
-    const story = await STORY.findById(req.params.id);
+    const story = await STORY.findById(req.params.id).populate("createdBy");
 
     // If story not found
     if (!story) {
@@ -68,5 +96,6 @@ const getSingleStory = async (req, res) => {
 module.exports = {
   getAllStory,
   addStory,
+  postPrivateStory,
   getSingleStory,
 };
