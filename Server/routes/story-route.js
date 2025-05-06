@@ -5,9 +5,13 @@ const storyController = require("../controllers/story-controller");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const authMiddleware = require("../middlewares/auth-middleware");
 
-//Get All the blogs
-router.get("/", storyController.getAllStory);
+//Get All the public story
+router.get("/public", storyController.getAllStory);
+
+//get user private story
+router.get("/private", authMiddleware, storyController.getPrivate);
 
 // Configure Cloudinary
 cloudinary.config({

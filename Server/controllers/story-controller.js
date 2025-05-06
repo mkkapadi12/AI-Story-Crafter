@@ -1,23 +1,35 @@
 const STORY = require("../models/story-model");
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, path.resolve("./public/uploads"));
-//   },
-//   filename: function (req, file, cb) {
-//     const filename = `${Date.now()}-${file.originalname}`;
-//     cb(null, filename);
-//   },
-// });
 
-// const upload = multer({ storage });
-
-//Get All the Story
+//GET ALL PUBLIC STORY
 const getAllStory = async (req, res) => {
   try {
     const stories = await STORY.find({}).populate("createdBy");
-    return res.status(200).json(stories);
+    const story = stories.filter((story) => story?.isPrivate == false);
+    return res.status(200).json(story);
   } catch (error) {
     return res.status(500).json({ error: "Failed to fetch stories !" });
+  }
+};
+
+//get user private story
+const getPrivate = async (req, res) => {
+  try {
+    const user = req.user;
+
+    // Make sure user._id exists
+    if (!user || !user._id) {
+      return res.status(400).json({ error: "Invalid user information" });
+    }
+
+    // Find stories created by this user
+    const privateStories = await STORY.find({ createdBy: user._id }).populate(
+      "createdBy"
+    );
+
+    return res.status(200).json(privateStories);
+  } catch (error) {
+    console.error("Error fetching private stories:", error);
+    return res.status(500).json({ error: "Failed to fetch stories!" });
   }
 };
 
@@ -76,7 +88,6 @@ const postPrivateStory = async (req, res) => {
 };
 
 //get single story
-
 const getSingleStory = async (req, res) => {
   try {
     // console.log("ID", req.params.id);
@@ -98,4 +109,5 @@ module.exports = {
   addStory,
   postPrivateStory,
   getSingleStory,
+  getPrivate,
 };

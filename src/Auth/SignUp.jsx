@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
+const API_BASE = import.meta.env.VITE_API;
+
 const SignUp = () => {
   const {
     register,
@@ -14,20 +16,14 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log("Form Data Submitted:", data);
-    //For Development:"http://localhost:5002/api/auth/register",
     try {
-      const response = await fetch(
-        //For Deployment :
-        "https://ai-story-crafter-server.vercel.app/api/auth/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${API_BASE}/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
       // handle success, redirect, or show message
       if (response.ok) {

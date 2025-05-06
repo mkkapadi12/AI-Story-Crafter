@@ -12,12 +12,10 @@ export default function Stories() {
   const { stories, loading } = useStoryContext();
   const [selectedTab, setSelectedTab] = useState("all");
 
-  const publicStories = stories.filter((story) => story.isPrivate == false);
-
   const filteredStories =
     selectedTab === "all"
-      ? publicStories
-      : publicStories.filter((story) =>
+      ? stories
+      : stories.filter((story) =>
           story.theme.toLowerCase().includes(selectedTab.toLowerCase())
         );
 
@@ -90,7 +88,7 @@ export default function Stories() {
             <Loading loadingText="loading..." />
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredStories.map((story) => (
+              {filteredStories?.map((story) => (
                 <StoryCard
                   key={story._id}
                   image={story.coverImage}

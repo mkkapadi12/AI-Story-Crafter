@@ -14,19 +14,13 @@ const SingleStory = () => {
   const {
     fetchSingleStory,
     story,
-    fetchStories,
     loading,
     related,
-    setLoading,
   } = useStoryContext();
   const { id } = useParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    fetchStories(); // Fetch all stories first
   }, []);
 
   useEffect(() => {

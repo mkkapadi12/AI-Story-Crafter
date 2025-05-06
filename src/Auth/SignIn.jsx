@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
+const API_BASE = import.meta.env.VITE_API;
+
 const SignIn = () => {
   const {
     register,
@@ -16,32 +18,22 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    // console.log("Login Data Submitted:", data);
-    //For Development:
-    // "http://localhost:5002/api/auth/login",
     try {
-      const response = await fetch(
-        //For Deployment:
-        "https://ai-story-crafter-server.vercel.app/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      // console.log("Response Status:", response.status);
+      const response = await fetch(`${API_BASE}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (response.ok) {
         const res_data = await response.json();
-        // console.log("Server response", res_data);
         storeTokenInLS(res_data.token);
         reset();
         toast.success("Login Successfully !");
         navigate("/");
       } else {
         toast.error("Invalid email and password !!");
-        // navigate("/signup");
       }
 
       // Add logic to store token or redirect user

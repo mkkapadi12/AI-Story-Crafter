@@ -4,12 +4,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useAuthContext } from "@/Context/AuthContext";
 import StoryCard from "@/components/StoryCard";
+import Loading from "@/helpers/Loading";
 
 const PrivateStory = () => {
-  const { stories } = useStoryContext();
+  const { privateStories, loading } = useStoryContext();
   const { user } = useAuthContext();
 
-  const privateStory = stories.filter(
+  const privateStory = privateStories?.filter(
     (story) => story.isPrivate === true && user?._id === story.createdBy?._id
   );
 
@@ -34,32 +35,40 @@ const PrivateStory = () => {
       </div>
 
       {/* Private Stories Section */}
-      <main className="px-2 py-12 mx-auto max-w-7xl">
-        {privateStory.length > 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {privateStory.map((story) => (
-              <StoryCard
-                key={story._id}
-                image={story.coverImage}
-                title={story.title}
-                description={story.story}
-                theme={story.theme}
-                id={story._id}
-                createdBy={story.createdBy}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="max-w-xl mx-auto mt-12 text-center">
-            <p className="text-xl font-semibold text-gray-700">
-              You haven’t created any private stories yet.
-            </p>
-            <p className="mt-2 text-gray-500">
-              Create a story and mark it as private to see it here.
-            </p>
-          </div>
-        )}
-      </main>
+      {loading ? (
+        <>
+          <Loading loadingText="Loading..." />
+        </>
+      ) : (
+        <>
+          <main className="px-2 py-12 mx-auto max-w-7xl">
+            {privateStory.length > 0 ? (
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {privateStory.map((story) => (
+                  <StoryCard
+                    key={story._id}
+                    image={story.coverImage}
+                    title={story.title}
+                    description={story.story}
+                    theme={story.theme}
+                    id={story._id}
+                    createdBy={story.createdBy}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="max-w-xl mx-auto mt-12 text-center">
+                <p className="text-xl font-semibold text-gray-700">
+                  You haven’t created any private stories yet.
+                </p>
+                <p className="mt-2 text-gray-500">
+                  Create a story and mark it as private to see it here.
+                </p>
+              </div>
+            )}
+          </main>
+        </>
+      )}
 
       {/* Footer */}
       <Footer />

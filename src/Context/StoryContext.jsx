@@ -14,13 +14,12 @@ import { Navigate } from "react-router-dom";
 
 const StoryContext = createContext();
 const API_KEY = process.env.GEMINI_API_KEY;
-
-//For development : http://localhost:5002/api/story/add
-//For production : https://ai-story-crafter-server.vercel.app/api/story/add
+const API_BASE = import.meta.env.VITE_API;
 
 const StoryProvider = ({ children }) => {
-  const { user } = useAuthContext();
+  const { user, authorizationToken, token } = useAuthContext();
   const [stories, setStories] = useState([]);
+  const [privateStories, setPrivateStories] = useState([]);
   const [story, setStory] = useState(null);
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -137,19 +136,16 @@ const StoryProvider = ({ children }) => {
 
     try {
       const res = await axios
-        .post(
-          "https://ai-story-crafter-server.vercel.app/api/story/add",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
+        .post(`${API_BASE}/api/story/add`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
         .then((res) => {
           // console.log("Story created successfully!", res.data);
           toast.success("Story created successfully!");
           fetchStories();
+          fetchPrivateStories();
           setLoading(false);
           setData((prev) => ({ ...prev, story: null, title: null }));
           setOutput("");
@@ -182,19 +178,15 @@ const StoryProvider = ({ children }) => {
 
     try {
       const res = await axios
-        .post(
-          "https://ai-story-crafter-server.vercel.app/api/story/private",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
+        .post(`${API_BASE}/api/story/private`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
         .then((res) => {
-          // console.log("Story created successfully!", res.data);
           toast.success("Story created successfully!");
           fetchStories();
+          fetchPrivateStories();
           setLoading(false);
           setData((prev) => ({ ...prev, story: null, title: null }));
           setOutput("");
@@ -211,16 +203,32 @@ const StoryProvider = ({ children }) => {
       toast.error("Failed to post private story. Please try again.");
     }
   };
-  //GET ALL STORIES
+
+  //GET ALL PUBLIC STORIES
   const fetchStories = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        "https://ai-story-crafter-server.vercel.app/api/story"
-      );
-      // console.log("response", response.data);
+      const publicStory = await axios.get(`${API_BASE}/api/story/public`);
 
-      setStories(response.data);
+      setStories(publicStory.data);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching stories:", err);
+      toast.error("Error fetching stories. Please try again later.");
+    }
+  };
+
+  //GET PRIVATE STORIES
+  const fetchPrivateStories = async () => {
+    setLoading(true);
+    try {
+      const privateStories = await axios.get(`${API_BASE}/api/story/private`, {
+        headers: {
+          Authorization: authorizationToken, // Include the token in the headers
+        },
+      });
+
+      setPrivateStories(privateStories.data);
       setLoading(false);
     } catch (err) {
       console.error("Error fetching stories:", err);
@@ -230,14 +238,11 @@ const StoryProvider = ({ children }) => {
 
   //GET SINGLE STORY
   const fetchSingleStory = async (id) => {
-    // console.log("ID", id);
     setLoading(true);
     try {
-      const response = await axios.get(
-        `https://ai-story-crafter-server.vercel.app/api/story/${id}`
-      );
+      const response = await axios.get(`${API_BASE}/api/story/${id}`);
       setStory(response.data);
-      // console.log(response.data);
+
       filterByTheme(response.data.theme, response.data._id);
       setLoading(false);
     } catch (error) {
@@ -245,7 +250,7 @@ const StoryProvider = ({ children }) => {
     }
   };
 
-  // Filter by theme
+  // FILTER STORY BY THEME
   const filterByTheme = (theme, storyId) => {
     if (!stories || stories.length === 0) {
       console.warn("Stories are not loaded yet!");
@@ -262,13 +267,15 @@ const StoryProvider = ({ children }) => {
 
   useEffect(() => {
     fetchStories();
-  }, []);
+    fetchPrivateStories();
+  }, [token]);
 
   return (
     <StoryContext.Provider
       value={{
         story,
         stories,
+        privateStories,
         loading,
         output,
         prompt,
@@ -282,6 +289,7 @@ const StoryProvider = ({ children }) => {
         setSelectedTheme,
         setImagePreview,
         fetchStories,
+        fetchPrivateStories,
         handleSubmit,
         filterByTheme,
         imagePreview,
