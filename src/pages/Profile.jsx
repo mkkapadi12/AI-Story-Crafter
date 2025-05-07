@@ -23,7 +23,7 @@ const Profile = () => {
     formState: { errors },
   } = useForm();
 
-  // console.log("user: ", user);
+ 
 
   const onSubmit = (data) => {
     // Add update logic here

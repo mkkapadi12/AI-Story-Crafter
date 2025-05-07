@@ -40,7 +40,7 @@ const App = () => {
 
           <Route
             exact
-            path="/create"
+            path="/start-creating"
             element={
               <PrivateRoute>
                 <StoryGenerator />

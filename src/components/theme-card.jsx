@@ -12,7 +12,7 @@ export default function ThemeCard({
     <div className="flex flex-col">
       <Link
         href={href}
-        className="block mb-3 overflow-hidden transition-shadow rounded-lg shadow-md hover:shadow-lg w-[360px] h-[250px]"
+        className="block mb-3 overflow-hidden transition-shadow rounded-lg shadow-md hover:shadow-lg  mx-auto h-[250px]"
       >
         <div className="relative flex items-center justify-center aspect-square">
           <img

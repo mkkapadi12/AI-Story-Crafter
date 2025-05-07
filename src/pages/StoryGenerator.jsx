@@ -10,24 +10,25 @@ export default function StoryGenerator() {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="relative px-6 py-20 overflow-hidden text-white bg-gradient-to-br from-purple-700 to-pink-400 md:px-20">
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h1 className="mb-4 text-3xl font-bold sm:text-4xl md:text-5xl drop-shadow-md">
-            Let AI Craft Your Next Great Story ✨
-          </h1>
-          <p className="text-sm text-purple-100 md:text-xl drop-shadow-sm">
-            Choose a theme, describe a scene, or upload an image — and let magic
-            unfold!
-          </p>
-        </div>
+      <section className="relative py-16 overflow-hidden md:py-24">
+        <div className="absolute w-16 h-16 bg-green-500 rounded-full top-20 left-10 opacity-80"></div>
+        <div className="absolute w-20 h-20 bg-yellow-400 rounded-full bottom-20 right-10 opacity-80"></div>
 
-        {/* Decorative Shapes */}
-        {/* <div className="absolute w-96 h-96 bg-pink-300 rounded-full opacity-20 blur-3xl top-[-80px] left-[-80px]" /> */}
-        {/* <div className="absolute w-72 h-72 bg-yellow-300 rounded-full opacity-20 blur-3xl bottom-[-60px] right-[-60px]" /> */}
-      </div>
+        <div className="container relative px-4 mx-auto">
+          <div className="max-w-3xl mx-auto mb-12 text-center">
+            <h1 className="mb-6 text-4xl font-bold text-blue-500 md:text-5xl">
+              Let AI Craft Your Next Great Story
+            </h1>
+            <p className="text-xl text-gray-700">
+              Choose a theme, describe a scene, or upload an image — and let
+              magic unfold!
+            </p>
+          </div>
+        </div>
+        </section>
 
       {/* Main Content */}
-      <div className="flex flex-col items-center justify-center p-4 md:px-12 lg:px-24 lg:py-12">
+      <div className="flex flex-col items-center justify-center p-4 md:px-12 lg:px-24 lg:py-12 bg-gray-50">
         <CreateStory />
       </div>
 

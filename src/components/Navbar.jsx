@@ -8,14 +8,11 @@ import {
   MenubarItem,
   MenubarMenu,
   MenubarSeparator,
-  MenubarShortcut,
-  MenubarSub,
-  MenubarSubContent,
-  MenubarSubTrigger,
   MenubarTrigger,
 } from "./ui/menubar";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
+import logo from "../assets/logo/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +28,9 @@ const Navbar = () => {
         </button>
 
         <Link to="/" className="text-2xl font-bold tracking-wide">
-          StoryCrafter
+          <div className="w-[112px] h-[50px]">
+            <img src={logo} alt="logo" className="w-full h-full" />
+          </div>
         </Link>
 
         {/* Desktop Nav */}

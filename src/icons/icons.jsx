@@ -1,12 +1,17 @@
 import {
   Bookmark,
   Camera,
+  Facebook,
+  Fingerprint,
   Heart,
+  Instagram,
   LightbulbIcon,
   Menu,
   Share2,
   Sparkles,
+  Twitter,
   Upload,
+  Users,
   X,
   Zap,
 } from "lucide-react";
@@ -22,4 +27,9 @@ export const ICONS = {
   SAVE: Bookmark,
   SHARE: Share2,
   LIKE: Heart,
+  INSTAGRAM: Instagram,
+  FACEBOOK: Facebook,
+  TWITTER: Twitter,
+  USERS: Users,
+  FINGERPRINT: Fingerprint,
 };

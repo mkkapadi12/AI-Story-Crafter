@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -25,9 +25,13 @@ const CreateStory = () => {
     setSelectedTheme,
   } = useStoryContext();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="w-full max-w-3xl px-4 py-10 mx-auto">
-      <h1 className="mb-4 text-3xl font-bold text-center text-purple-700 md:text-4xl">
+      <h1 className="mb-4 text-3xl font-bold text-center text-gray-800 md:text-4xl">
         Create Your AI-Generated Story
       </h1>
       <p className="mb-10 text-center text-gray-600">
@@ -49,8 +53,8 @@ const CreateStory = () => {
                   htmlFor="image-upload"
                   className="flex flex-col items-center justify-center cursor-pointer"
                 >
-                  <ICONS.UPLOAD className="w-10 h-10 mb-2 text-purple-500" />
-                  <p className="font-medium text-purple-600">
+                  <ICONS.UPLOAD className="w-10 h-10 mb-2 text-blue-500" />
+                  <p className="font-medium text-blue-600">
                     Click to upload an image
                   </p>
                   <input
@@ -82,7 +86,7 @@ const CreateStory = () => {
 
         {/* Title Input */}
         <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">
+          <label className="block mb-2 text-sm font-medium text-blue-700">
             Story Title
           </label>
           <Input
@@ -96,7 +100,7 @@ const CreateStory = () => {
 
         {/* Description Textarea */}
         <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700">
+          <label className="block mb-2 text-sm font-medium text-blue-700">
             Short Description
           </label>
           <Textarea
@@ -116,7 +120,7 @@ const CreateStory = () => {
 
         {/* Theme Selection */}
         <div>
-          <label className="block mb-3 text-sm font-medium text-gray-700">
+          <label className="block mb-3 text-sm font-medium text-blue-700">
             Select a Theme
           </label>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -127,7 +131,7 @@ const CreateStory = () => {
                 className={cn(
                   "flex items-center justify-center gap-2 px-4 py-2 rounded-lg border transition-all",
                   selectedTheme === theme.id
-                    ? "bg-purple-100 border-purple-500 text-purple-700 shadow-sm"
+                    ? "bg-blue-100 border-blue-500 text-blue-700 shadow-sm"
                     : "bg-white border-gray-200 hover:bg-gray-50"
                 )}
               >

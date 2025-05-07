@@ -23,7 +23,7 @@ const HeroSection = () => {
             platform. Create stunning visuals for any occasion.
           </p>
           <div className="flex justify-center gap-4 text-white">
-            <Link to="/create">
+            <Link to="/start-creating">
               <Button className="p-2 bg-[#FF5599] cursor-pointer">
                 Start Creating
               </Button>

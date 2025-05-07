@@ -26,7 +26,7 @@ export default function NotFound() {
           Go Home
         </Link>
         <Link
-          to="/create"
+          to="/start-creating"
           className="border border-[#702dff] text-[#702dff] px-6 py-3 rounded-lg font-medium hover:bg-[#f2ebff] transition-all"
         >
           Start Creating

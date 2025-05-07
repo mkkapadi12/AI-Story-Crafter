@@ -3,8 +3,12 @@ import ImageCard from "../components/ui/ImageCard";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import ShapeDecorator from "@/components/shape-decorator";
+import Footer from "@/components/Footer";
+import { useStoryContext } from "@/Context/StoryContext";
 
 export default function Discover() {
+  const { stories } = useStoryContext();
+
   return (
     <main>
       {/* header */}
@@ -58,9 +62,9 @@ export default function Discover() {
       </section>
 
       {/* Partners Section */}
-      <section className="px-4 py-8">
-        <div className="container max-w-6xl mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-8">
+      <section className="p-3">
+        <div className="max-w-2xl mx-auto">
+          <div className="grid grid-cols-5 gap-0">
             <div className="w-24 h-8 ">
               <Button className="bg-[#FF5599] text-white cursor-pointer">
                 nature
@@ -92,26 +96,32 @@ export default function Discover() {
 
       {/* Gallery Grid */}
       <section className="px-4 py-12">
-        <h2 className="text-[#2B2B2B] text-lg sm:text-xl mb-4 text-center">
+        <h2 className="text-[#2B2B2B] text-lg sm:text-xl mb-6 text-center">
           Explore a World of Imagination and Creativity
         </h2>{" "}
         <div className="container mx-auto max-w-7xl">
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            <ImageCard src="https://placehold.co/300" alt="Gallery image 1" />
-            <ImageCard src="https://placehold.co/300" alt="Gallery image 2" />
-            <ImageCard src="https://placehold.co/300" alt="Gallery image 3" />
-            <ImageCard src="https://placehold.co/300" alt="Gallery image 4" />
-            <ImageCard src="https://placehold.co/300" alt="Gallery image 5" />
-            <ImageCard src="https://placehold.co/300" alt="Gallery image 6" />
-            <ImageCard src="https://placehold.co/300" alt="Gallery image 7" />
-            <ImageCard src="https://placehold.co/300" alt="Gallery image 8" />
+            {stories.map((card, index) => {
+              return (
+                <ImageCard
+                  key={index}
+                  src={card.coverImage}
+                  alt="Gallery image 1"
+                />
+              );
+            })}
           </div>
 
           <div className="mt-12 text-center">
-            <button className="btn-primary">Load More</button>
+            <Button className="text-white bg-blue-500 cursor-pointer">
+              Load More
+            </Button>
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </main>
   );
 }
