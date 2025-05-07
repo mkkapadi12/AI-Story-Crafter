@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // rrd
 import { Link } from "react-router-dom";
 //icons
@@ -13,6 +13,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <main>
       {/* header */}

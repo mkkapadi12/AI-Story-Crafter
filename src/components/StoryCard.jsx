@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { formatDistanceToNow } from "date-fns";
 
 export default function StoryCard({
   image,
@@ -12,6 +13,7 @@ export default function StoryCard({
   theme,
   id,
   createdBy,
+  date,
 }) {
   return (
     <Card className="justify-between overflow-hidden transition-all hover:shadow-md">
@@ -36,7 +38,18 @@ export default function StoryCard({
                 {createdBy?.name?.charAt(0)}
               </AvatarFallback>
             </Avatar>
-            <h1>Created By : {createdBy?.name}</h1>
+            <div className="">
+              <h1> {createdBy?.name}</h1>
+              {date ? (
+                <p className="text-sm text-gray-500">
+                  {formatDistanceToNow(new Date(date), {
+                    addSuffix: true,
+                  })}
+                </p>
+              ) : (
+                <p className="text-sm text-white">Loading time...</p> // Optional fallback
+              )}
+            </div>
           </div>
           <Badge variant="outline" className="text-blue-600 bg-blue-50">
             {theme}

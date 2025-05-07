@@ -53,6 +53,7 @@ const PrivateStory = () => {
                     theme={story.theme}
                     id={story._id}
                     createdBy={story.createdBy}
+                    date={story.createdAt}
                   />
                 ))}
               </div>

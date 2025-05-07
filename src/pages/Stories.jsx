@@ -96,6 +96,7 @@ export default function Stories() {
                   description={story.story}
                   theme={story.theme}
                   id={story._id}
+                  date={story.createdAt}
                   createdBy={story.createdBy}
                 />
               ))}

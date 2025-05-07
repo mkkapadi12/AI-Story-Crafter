@@ -35,7 +35,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/all-stories"
+                  to="/stories"
                   className="text-gray-600 hover:text-blue-500"
                 >
                   All Stories
@@ -43,7 +43,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/fiction"
+                  to="/fiction"
                   className="text-gray-600 hover:text-blue-500"
                 >
                   Fiction
@@ -51,7 +51,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/seasonal"
+                  to="/seasonal"
                   className="text-gray-600 hover:text-blue-500"
                 >
                   Seasonal
@@ -59,7 +59,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/nature"
+                  to="/nature"
                   className="text-gray-600 hover:text-blue-500"
                 >
                   Nature
@@ -74,7 +74,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/about-us"
+                  to="/about-us"
                   className="text-gray-600 hover:text-blue-500"
                 >
                   About Us
@@ -82,7 +82,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  to="/contact"
                   className="text-gray-600 hover:text-blue-500"
                 >
                   Contact
@@ -90,7 +90,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/privacy-policy"
+                  to="/privacy-policy"
                   className="text-gray-600 hover:text-blue-500"
                 >
                   Privacy Policy
@@ -98,7 +98,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/terms-of-service"
+                  to="/terms-of-service"
                   className="text-gray-600 hover:text-blue-500"
                 >
                   Terms of Service

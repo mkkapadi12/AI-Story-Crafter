@@ -35,16 +35,16 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <nav className="items-center hidden gap-6 md:flex">
-          <Link to="/" className="transition hover:text-yellow-300">
+          <Link to="/" className="transition hover:text-blue-200">
             Home
           </Link>
-          <Link to="/discover" className="transition hover:text-yellow-300">
+          <Link to="/discover" className="transition hover:text-blue-200">
             Discover
           </Link>
-          <Link to="/stories" className="transition hover:text-yellow-300">
+          <Link to="/stories" className="transition hover:text-blue-200">
             Stories
           </Link>
-          <Link to="/about" className="transition hover:text-yellow-300">
+          <Link to="/about" className="transition hover:text-blue-200">
             About Us
           </Link>
         </nav>

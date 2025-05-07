@@ -5,6 +5,11 @@ import { Button } from "@/components/ui/button";
 import ShapeDecorator from "@/components/shape-decorator";
 import Footer from "@/components/Footer";
 import { useStoryContext } from "@/Context/StoryContext";
+import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
+import { StoryCircles } from "@/components/story-circles";
+import StoryCardUpdate from "@/components/StoryCardUpdate";
+import { TrendingTopics } from "@/components/TrendingTopics";
 
 export default function Discover() {
   const { stories } = useStoryContext();
@@ -43,80 +48,55 @@ export default function Discover() {
         </div>
       </section>
 
-      {/* Search Section */}
-      <section className="px-4 py-8">
-        <div className="container max-w-6xl mx-auto">
-          <div className="flex justify-center mb-12">
-            <div className="relative w-full max-w-xl">
-              <input
-                type="text"
-                placeholder="Search stories here...."
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FF5599] focus:border-transparent"
-              />
-              <Button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#FF5599] text-white px-4 py-1.5 rounded-md">
-                Search
-              </Button>
-            </div>
+      {/* Story Circles Section */}
+      <section className="px-4 py-6 md:px-8 lg:px-16 bg-gray-50">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-gray-800">
+              Trending Stories
+            </h2>
+            <Link
+              to="/stories"
+              className="flex items-center text-sm font-medium text-blue-500"
+            >
+              View All <ChevronRight className="w-4 h-4 ml-1" />
+            </Link>
           </div>
+          <StoryCircles />
         </div>
       </section>
 
-      {/* Partners Section */}
-      <section className="p-3">
-        <div className="max-w-2xl mx-auto">
-          <div className="grid grid-cols-5 gap-0">
-            <div className="w-24 h-8 ">
-              <Button className="bg-[#FF5599] text-white cursor-pointer">
-                nature
-              </Button>
-            </div>
-            <div className="w-24 h-8 ">
-              <Button className="bg-[#FF5599] text-white cursor-pointer">
-                nature
-              </Button>
-            </div>
-            <div className="w-24 h-8 ">
-              <Button className="bg-[#FF5599] text-white cursor-pointer">
-                nature
-              </Button>
-            </div>
-            <div className="w-24 h-8 ">
-              <Button className="bg-[#FF5599] text-white cursor-pointer">
-                nature
-              </Button>
-            </div>
-            <div className="w-24 h-8 ">
-              <Button className="bg-[#FF5599] text-white cursor-pointer">
-                nature
-              </Button>
-            </div>
+      {/* Featured Stories Grid */}
+      <section className="px-4 py-10 md:px-8 lg:px-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-800">
+              Featured Stories
+            </h2>
+            <Link
+              href="/stories/featured"
+              className="flex items-center text-sm font-medium text-blue-500"
+            >
+              View All <ChevronRight className="w-4 h-4 ml-1" />
+            </Link>
           </div>
+          <StoryCardUpdate />
         </div>
       </section>
 
-      {/* Gallery Grid */}
-      <section className="px-4 py-12">
-        <h2 className="text-[#2B2B2B] text-lg sm:text-xl mb-6 text-center">
-          Explore a World of Imagination and Creativity
-        </h2>{" "}
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {stories.map((card, index) => {
-              return (
-                <ImageCard
-                  key={index}
-                  src={card.coverImage}
-                  alt="Gallery image 1"
-                />
-              );
-            })}
+      {/* Trending Topics */}
+      <section className="px-4 py-10 md:px-8 lg:px-16 bg-gray-50">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-800">Explore Topics</h2>
+            <Link
+              href="/topics"
+              className="flex items-center text-sm font-medium text-blue-500"
+            >
+              View All <ChevronRight className="w-4 h-4 ml-1" />
+            </Link>
           </div>
-
-          <div className="mt-12 text-center">
-            <Button className="text-white bg-blue-500 cursor-pointer">
-              Load More
-            </Button>
-          </div>
+          <TrendingTopics />
         </div>
       </section>
 

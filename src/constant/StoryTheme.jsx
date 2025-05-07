@@ -1,0 +1,92 @@
+export const themes = [
+  {
+    id: "love",
+    name: "Love",
+    icon: "❤️",
+    color: "bg-red-100 text-red-800 hover:bg-red-200",
+  },
+  {
+    id: "sad",
+    name: "Sad",
+    icon: "😢",
+    color: "bg-blue-100 text-blue-800 hover:bg-blue-200",
+  },
+  {
+    id: "melancholy",
+    name: "Melancholy",
+    icon: "😭",
+    color: "bg-indigo-100 text-indigo-800 hover:bg-indigo-200",
+  },
+  {
+    id: "happy",
+    name: "Happy",
+    icon: "🎉",
+    color: "bg-yellow-100 text-yellow-800 hover:bg-yellow-200",
+  },
+  {
+    id: "tragic",
+    name: "Tragic",
+    icon: "🥀",
+    color: "bg-gray-100 text-gray-800 hover:bg-gray-200",
+  },
+  {
+    id: "sciFi",
+    name: "Sci-Fi",
+    icon: "👽",
+    color: "bg-green-100 text-green-800 hover:bg-green-200",
+  },
+  {
+    id: "thriller",
+    name: "Thriller",
+    icon: "🔪",
+    color: "bg-rose-100 text-rose-800 hover:bg-rose-200",
+  },
+  {
+    id: "adventure",
+    name: "Adventure",
+    icon: "🧗",
+    color: "bg-teal-100 text-teal-800 hover:bg-teal-200",
+  },
+  {
+    id: "comedy",
+    name: "Comedy",
+    icon: "😂",
+    color: "bg-orange-100 text-orange-800 hover:bg-orange-200",
+  },
+  {
+    id: "horror",
+    name: "Horror",
+    icon: "👻",
+    color: "bg-red-100 text-red-800 hover:bg-red-200",
+  },
+  {
+    id: "crime",
+    name: "Crime",
+    icon: "🕵️",
+    color: "bg-slate-100 text-slate-800 hover:bg-slate-200",
+  },
+  {
+    id: "mystery",
+    name: "Mystery",
+    icon: "🧩",
+    color: "bg-violet-100 text-violet-800 hover:bg-violet-200",
+  },
+  {
+    id: "drama",
+    name: "Drama",
+    icon: "🎭",
+    color: "bg-fuchsia-100 text-fuchsia-800 hover:bg-fuchsia-200",
+  },
+  {
+    id: "romance",
+    name: "Romance",
+    icon: "💘",
+    color: "bg-pink-100 text-pink-800 hover:bg-pink-200",
+  },
+  {
+    id: "animation",
+    name: "Animation",
+    icon: "🎨",
+    color: "bg-cyan-100 text-cyan-800 hover:bg-cyan-200",
+  },
+];

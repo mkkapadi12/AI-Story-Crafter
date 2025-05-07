@@ -9,15 +9,13 @@ import Footer from "@/components/Footer";
 import Loading from "@/helpers/Loading";
 import StoryCard from "@/components/StoryCard";
 import { ICONS } from "@/icons/icons";
+import { formatDistanceToNow } from "date-fns";
 
 const SingleStory = () => {
-  const {
-    fetchSingleStory,
-    story,
-    loading,
-    related,
-  } = useStoryContext();
+  const { fetchSingleStory, story, loading, related } = useStoryContext();
   const { id } = useParams();
+
+  console.log(story);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -30,7 +28,7 @@ const SingleStory = () => {
   return (
     <section className="bg-gray-50">
       <Navbar />
-      {loading ? (
+      {loading || !story ? (
         <>
           <Loading loadingText="Loading Story..." />;
         </>
@@ -52,8 +50,8 @@ const SingleStory = () => {
                 <h1 className="mb-4 text-3xl font-bold leading-tight md:text-5xl">
                   {story?.title}
                 </h1>
-                <div className="flex items-center gap-4">
-                  <Avatar className="!w-9 !h-9 duration-300 cursor-pointer tsmransition-all ring-1 ring-blue-500 hover:ring-2 md:w-12 md:h-12">
+                <div className="flex items-center justify-start gap-4">
+                  <Avatar className="!w-10 !h-10 duration-300 cursor-pointer tsmransition-all ring-1 ring-blue-500 hover:ring-2 md:w-12 md:h-12">
                     <AvatarImage
                       src={story?.createdBy?.profileImage}
                       alt="profile"
@@ -65,7 +63,15 @@ const SingleStory = () => {
                   </Avatar>
                   <div>
                     <p className="font-medium">{story?.name}</p>
-                    {/* Optionally add date info */}
+                    {story?.createdAt ? (
+                      <p className="text-sm text-white">
+                        {formatDistanceToNow(new Date(story.createdAt), {
+                          addSuffix: true,
+                        })}
+                      </p>
+                    ) : (
+                      <p className="text-sm text-white">Loading time...</p> // Optional fallback
+                    )}
                   </div>
                 </div>
               </div>
@@ -115,6 +121,7 @@ const SingleStory = () => {
                       theme={story.theme}
                       id={story._id}
                       createdBy={story.createdBy}
+                      date={story.createdAt}
                     />
                   ))}
                 </div>
