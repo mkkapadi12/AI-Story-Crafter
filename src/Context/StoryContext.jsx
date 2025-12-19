@@ -96,7 +96,7 @@ const StoryProvider = ({ children }) => {
 
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash", // or gemini-1.5-pro
+        model: "gemini-2.5-flash", // or gemini-1.5-pro
         safetySettings: [
           {
             category: HarmCategory.HARM_CATEGORY_HARASSMENT,
@@ -113,6 +113,7 @@ const StoryProvider = ({ children }) => {
         buffer.push(response.text());
         setOutput(md.render(buffer.join("")));
         setData((prev) => ({ ...prev, story: md.render(buffer.join("")) }));
+        console.log("response chunk:", response.text());
         setLoading(false);
       }
       setLoading(false);
@@ -204,6 +205,14 @@ const StoryProvider = ({ children }) => {
     }
   };
 
+  //CLEAR STORY
+  const clearStroy = () => {
+    setOutput("");
+    setData((prev) => ({ ...prev, story: null, title: null }));
+    // setImagePreview(null);
+    // setImage(null);
+  };
+
   //GET ALL PUBLIC STORIES
   const fetchStories = async () => {
     setLoading(true);
@@ -283,6 +292,7 @@ const StoryProvider = ({ children }) => {
         setLoading,
         postPublic,
         postPrivate,
+        clearStroy,
         setData,
         themes,
         selectedTheme,

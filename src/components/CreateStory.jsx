@@ -11,6 +11,7 @@ const CreateStory = () => {
   const {
     postPublic,
     postPrivate,
+    clearStroy,
     output,
     setData,
     handleImageChange,
@@ -187,6 +188,12 @@ const CreateStory = () => {
                       className="text-white bg-purple-600 cursor-pointer hover:bg-purple-700"
                     >
                       Post Private
+                    </Button>
+                     <Button
+                      onClick={clearStroy}
+                      className="text-white bg-purple-600 cursor-pointer hover:bg-purple-700"
+                    >
+                      Clear
                     </Button>
                   </div>
                 </div>
