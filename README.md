@@ -13,8 +13,8 @@ AI‑Story‑Crafter empowers users to effortlessly generate creative short stor
 ## 📸 Project Images
 
  
-| Landing Page | Generator | Story Feed | Mobile View |
-|--------------|-----------|------------|-------------|
+| Landing Page | Generator | Story Feed |
+|--------------|-----------|------------|
 | ![Home](/src/assets/docs/screenshot-home.png) | ![Generator](/src/assets/docs/screenshot-generator.png) | ![Feed](/src/assets/docs/screenshot-feed.png) |
 
 ---
