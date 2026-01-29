@@ -11,7 +11,7 @@ const About = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative py-16 overflow-hidden md:py-24">
+      <section className="relative py-16 mx-auto overflow-hidden md:py-24 max-w-7xl">
         <div className="absolute w-16 h-16 bg-green-500 rounded-full top-20 left-10 opacity-80"></div>
         <div className="absolute w-20 h-20 bg-yellow-400 rounded-full bottom-20 right-10 opacity-80"></div>
 
@@ -28,8 +28,8 @@ const About = () => {
         </div>
       </section>
       {/* Our Mission */}
-      <section className="py-12 md:py-20 bg-gray-50">
-        <div className="container px-4 mx-auto">
+      <section className="py-12 mx-auto md:py-20 bg-gray-50">
+        <div className="container px-4 mx-auto max-w-7xl">
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col items-center gap-10 md:flex-row">
               <div className="md:w-1/2">
@@ -68,7 +68,7 @@ const About = () => {
       </section>
 
       {/* Our Team */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 mx-auto md:py-24 max-w-7xl">
         <div className="container px-4 mx-auto">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">
@@ -80,7 +80,7 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid max-w-6xl grid-cols-1 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3">
             {/* Team Member 1 */}
             <div className="overflow-hidden transition-transform bg-white rounded-lg shadow-md hover:scale-105">
               <div className="h-64 bg-gray-200">
@@ -153,60 +153,62 @@ const About = () => {
 
       {/* Our Values */}
       <section className="relative py-16 overflow-hidden md:py-24 bg-blue-50">
-        <div className="absolute top-0 right-0 w-32 h-32 transform translate-x-1/2 -translate-y-1/2 bg-purple-500 rounded-full opacity-10"></div>
-        <div className="absolute bottom-0 left-0 w-40 h-40 transform -translate-x-1/2 translate-y-1/2 bg-yellow-300 rounded-full opacity-10"></div>
+        <div className="mx-auto max-w-7xl">
+          <div className="absolute right-0 w-32 h-32 transform translate-x-1/2 -translate-y-1/2 bg-purple-500 rounded-full top-12 opacity-30"></div>
+          <div className="absolute bottom-0 left-0 w-40 h-40 transform -translate-x-1/2 translate-y-1/2 bg-yellow-300 rounded-full opacity-30"></div>
 
-        <div className="container relative px-4 mx-auto">
-          <div className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">
-              Our Values
-            </h2>
-            <p className="max-w-2xl mx-auto text-xl text-gray-600">
-              The principles that guide everything we do at StoryCrafter.
-            </p>
-          </div>
-
-          <div className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-3">
-            {/* Value 1 */}
-            <div className="p-8 bg-white rounded-lg shadow-md">
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-full">
-                <ICONS.THUNDER size={30} className="text-blue-500" />
-              </div>
-              <h3 className="mb-3 text-xl font-bold text-center text-gray-800">
-                Innovation
-              </h3>
-              <p className="text-center text-gray-600">
-                We constantly push the boundaries of what's possible with AI and
-                creative technology.
+          <div className="container relative px-4 mx-auto">
+            <div className="mb-16 text-center">
+              <h2 className="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">
+                Our Values
+              </h2>
+              <p className="max-w-2xl mx-auto text-xl text-gray-600">
+                The principles that guide everything we do at StoryCrafter.
               </p>
             </div>
 
-            {/* Value 2 */}
-            <div className="p-8 bg-white rounded-lg shadow-md">
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-full">
-                <ICONS.USERS size={30} className="text-blue-500" />
+            <div className="grid max-w-6xl grid-cols-1 gap-8 mx-auto md:grid-cols-3">
+              {/* Value 1 */}
+              <div className="p-8 bg-white rounded-lg shadow-md">
+                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-full">
+                  <ICONS.THUNDER size={30} className="text-blue-500" />
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-center text-gray-800">
+                  Innovation
+                </h3>
+                <p className="text-center text-gray-600">
+                  We constantly push the boundaries of what's possible with AI
+                  and creative technology.
+                </p>
               </div>
-              <h3 className="mb-3 text-xl font-bold text-center text-gray-800">
-                Accessibility
-              </h3>
-              <p className="text-center text-gray-600">
-                We believe creative tools should be accessible to everyone,
-                regardless of technical expertise.
-              </p>
-            </div>
 
-            {/* Value 3 */}
-            <div className="p-8 bg-white rounded-lg shadow-md">
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-full">
-                <ICONS.FINGERPRINT size={30} className="text-blue-500" />
+              {/* Value 2 */}
+              <div className="p-8 bg-white rounded-lg shadow-md">
+                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-full">
+                  <ICONS.USERS size={30} className="text-blue-500" />
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-center text-gray-800">
+                  Accessibility
+                </h3>
+                <p className="text-center text-gray-600">
+                  We believe creative tools should be accessible to everyone,
+                  regardless of technical expertise.
+                </p>
               </div>
-              <h3 className="mb-3 text-xl font-bold text-center text-gray-800">
-                Quality
-              </h3>
-              <p className="text-center text-gray-600">
-                We're committed to delivering the highest quality AI-generated
-                content that exceeds expectations.
-              </p>
+
+              {/* Value 3 */}
+              <div className="p-8 bg-white rounded-lg shadow-md">
+                <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-full">
+                  <ICONS.FINGERPRINT size={30} className="text-blue-500" />
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-center text-gray-800">
+                  Quality
+                </h3>
+                <p className="text-center text-gray-600">
+                  We're committed to delivering the highest quality AI-generated
+                  content that exceeds expectations.
+                </p>
+              </div>
             </div>
           </div>
         </div>

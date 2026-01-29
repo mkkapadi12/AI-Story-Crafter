@@ -21,7 +21,7 @@ const Navbar = () => {
 
   return (
     <header className="bg-[#007BFF] text-white shadow-md sticky top-0 z-50">
-      <div className="container flex items-center justify-between px-5 py-2.5 mx-auto">
+      <div className="container flex items-center justify-between px-5 py-2.5 max-w-7xl mx-auto">
         {/* Hamburger */}
         <button onClick={toggleMenu} className="md:hidden">
           {isOpen ? <ICONS.CROSS size={28} /> : <ICONS.MENU size={28} />}
@@ -34,7 +34,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="items-center hidden gap-6 md:flex">
+        <nav className="items-center hidden gap-8 lg:text-lg md:flex">
           <Link to="/" className="transition hover:text-blue-200">
             Home
           </Link>

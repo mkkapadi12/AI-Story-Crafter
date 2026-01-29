@@ -43,7 +43,7 @@ export function TrendingTopics() {
     };
   });
 
-  console.log(topicsWithMeta);
+  // console.log(topicsWithMeta);
 
   return (
     <Card className="bg-white border-none shadow-sm">

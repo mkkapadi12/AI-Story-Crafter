@@ -10,12 +10,17 @@ import Loading from "@/helpers/Loading";
 import StoryCard from "@/components/StoryCard";
 import { ICONS } from "@/icons/icons";
 import { formatDistanceToNow } from "date-fns";
+import {
+  FacebookShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from "react-share";
 
 const SingleStory = () => {
   const { fetchSingleStory, story, loading, related } = useStoryContext();
   const { id } = useParams();
 
-  console.log(story);
+  // console.log(story);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -92,10 +97,16 @@ const SingleStory = () => {
                   <ICONS.LIKE />
                   Like
                 </Button>
-                <Button className="bg-blue-600 hover:bg-blue-700">
-                  <ICONS.SHARE />
-                  Share
-                </Button>
+                {/* <Button className="bg-blue-600 hover:bg-blue-700"> */}
+                <WhatsappShareButton
+                  url={"https://ai-story-crafter.vercel.app/story/" + id}
+                  title={story?.title}
+                  separator=" " // Separates title from the URL in the shared message
+                >
+                  <WhatsappIcon size={40} round={true} />
+                </WhatsappShareButton>
+
+                {/* </Button> */}
                 <Button className="bg-blue-600 hover:bg-blue-700">
                   <ICONS.SAVE />
                   Save

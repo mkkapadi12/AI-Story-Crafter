@@ -61,7 +61,7 @@ export default function StoryCard({
         <div
           className="my-4 output"
           dangerouslySetInnerHTML={{
-            __html: description.slice(0, 70) + "...",
+            __html: description.slice(0, 40) + "...",
           }}
         />
         {/* <p className="text-sm text-gray-600">{description.slice(0, 20)}</p> */}
